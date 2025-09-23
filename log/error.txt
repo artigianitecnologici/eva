@@ -5,3 +5,21 @@
 [23/09/2025 08:08:28] [ERROR] Chiamata a Ollama fallita (host: http://192.168.1.13:11434, model: gemma2:2b) — model 'gemma2:2b' not found
 [23/09/2025 08:16:46] [ERROR] Chiamata a Ollama fallita (host: http://192.168.1.13:11434, model: gemma2:2b) — model 'gemma2:2b' not found
 [23/09/2025 08:17:03] [ERROR] Chiamata a Ollama fallita (host: http://192.168.1.13:11434, model: gemma2:2b) — model 'gemma2:2b' not found
+[23/09/2025 13:20:13] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:21:44] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:22:37] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:23:48] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:26:02] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:32:04] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:36:16] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:37:40] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:39:26] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:42:47] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:47:49] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:47:50] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:55:36] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:59:04] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 13:59:12] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 14:07:47] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 14:12:39] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle
+[23/09/2025 14:14:37] [ERROR] Handler time_it.py ignorato: mancano funzioni can_handle/handle

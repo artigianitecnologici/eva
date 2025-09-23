@@ -7,14 +7,15 @@ import html
 import asyncio
 import tempfile
 import subprocess
-from typing import Dict
+from typing import Dict, List
+from io import BytesIO
 
 import aiohttp
-from telegram import Update
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode, ChatAction
 from telegram.error import BadRequest, TelegramError
 from telegram.ext import (
-    ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
+    ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters, CallbackQueryHandler
 )
 
 # =============== Config load ===============
@@ -48,8 +49,15 @@ if not BOT_TOKEN:
     print("[ERRORE] bot_token non impostato in config/telegram.json", file=sys.stderr)
     sys.exit(1)
 
+# Carica le voci TTS dinamicamente dal file di configurazione
+TTS_VOICES_MAP: Dict[str, str] = PIPER_CFG.get("voices", {})
+TTS_VOICES: List[str] = sorted(list(TTS_VOICES_MAP.keys()))
+if not TTS_VOICES:
+    print("[ATTENZIONE] Nessuna voce TTS trovata nella configurazione.", file=sys.stderr)
+
 # =============== Stato per chat ===============
 CHAT_MODEL: Dict[int, str] = {}
+CHAT_VOICE: Dict[int, str] = {}
 
 def _is_allowed(chat_id: int) -> bool:
     return (not ALLOWED_CHAT_IDS) or (chat_id in ALLOWED_CHAT_IDS)
@@ -59,6 +67,15 @@ def _get_model_for_chat(chat_id: int) -> str:
 
 def _set_model_for_chat(chat_id: int, model: str):
     CHAT_MODEL[chat_id] = (model or "").strip()
+
+def _get_voice_for_chat(chat_id: int) -> str:
+    return CHAT_VOICE.get(chat_id, TTS_VOICES[0] if TTS_VOICES else "")
+
+def _set_voice_for_chat(chat_id: int, voice: str):
+    CHAT_VOICE[chat_id] = (voice or "").strip()
+
+def _get_piper_model_path_for_voice(voice_name: str) -> str:
+    return TTS_VOICES_MAP.get(voice_name, "")
 
 def chunk_text(text: str, max_len: int = 3800):
     text = text or ""
@@ -72,15 +89,11 @@ def sanitize_response(text: str) -> str:
     if not isinstance(text, str):
         return text
     text = text.replace("**", "")
-    # opzionale: togliere __ e backtick
-    # text = text.replace("__", "").replace("`", "")
     return text
 
 # =============== Client verso app-ollama.py ===============
 async def query_app_ollama(session: aiohttp.ClientSession, text: str, model: str) -> str:
     url = APP_BASE_URL
-
-    # POST JSON
     try:
         async with session.post(url, json={"query": text, "model": model}, timeout=TIMEOUT_SEC) as resp:
             if resp.status == 200:
@@ -102,28 +115,24 @@ async def query_app_ollama(session: aiohttp.ClientSession, text: str, model: str
     except Exception as e:
         return f"(errore: impossibile contattare l'app Ollama {url} — {e})"
 
-# =============== ASR: Faster-Whisper ===============
-_whisper_model = None
-
+# =============== ASR: faster-whisper ===============
+_faster_whisper_model = None
 def _load_faster_whisper_model():
-    global _whisper_model
-    if _whisper_model is not None:
-        return _whisper_model
+    global _faster_whisper_model
+    if _faster_whisper_model is not None:
+        return _faster_whisper_model
     try:
         from faster_whisper import WhisperModel
     except Exception as e:
         raise RuntimeError(f"faster-whisper non installato: {e}. Esegui: pip install faster-whisper") from e
 
-    model_name = ASR_CFG.get("model", "small")
+    model_name = ASR_CFG.get("model", "tiny")
     compute_type = ASR_CFG.get("compute_type", "int8")
-    _whisper_model = WhisperModel(model_name, compute_type=compute_type)
-    return _whisper_model
 
-def _ffmpeg_convert_to_wav16k_mono(in_path: str, out_path: str):
-    cmd = ["ffmpeg", "-y", "-i", in_path, "-ac", "1", "-ar", "16000", "-f", "wav", out_path]
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if result.returncode != 0:
-        raise RuntimeError(f"ffmpeg errore: {result.stderr.decode(errors='ignore')}")
+    device = "cpu"
+    
+    _faster_whisper_model = WhisperModel(model_name, device=device, compute_type=compute_type)
+    return _faster_whisper_model
 
 async def transcribe_voice_ogg_to_text(ogg_bytes: bytes) -> str:
     with tempfile.TemporaryDirectory() as tmpd:
@@ -131,32 +140,34 @@ async def transcribe_voice_ogg_to_text(ogg_bytes: bytes) -> str:
         wav_path = os.path.join(tmpd, "voice.wav")
         with open(ogg_path, "wb") as f:
             f.write(ogg_bytes)
-
+        
         loop = asyncio.get_running_loop()
-        await loop.run_in_executor(None, _ffmpeg_convert_to_wav16k_mono, ogg_path, wav_path)
+        def _ffmpeg_convert():
+            cmd = ["ffmpeg", "-y", "-i", ogg_path, "-ac", "1", "-ar", "16000", "-f", "wav", wav_path]
+            result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if result.returncode != 0:
+                raise RuntimeError(f"ffmpeg errore: {result.stderr.decode(errors='ignore')}")
+        await loop.run_in_executor(None, _ffmpeg_convert)
 
         def _do_transcribe():
             model = _load_faster_whisper_model()
-            language = ASR_CFG.get("language") or None
-            beam_size = ASR_CFG.get("beam_size", 5)
-            segments, info = model.transcribe(wav_path, language=language, beam_size=beam_size)
-            return "".join(seg.text for seg in segments).strip()
-
+            segments, _ = model.transcribe(wav_path, beam_size=5)
+            return " ".join([seg.text for seg in segments])
+        
         text = await loop.run_in_executor(None, _do_transcribe)
         return text or ""
 
 # =============== TTS: Piper ===============
-def _piper_check():
+def _piper_check(model_path: str):
     bin_path = PIPER_CFG.get("binary")
-    model_path = PIPER_CFG.get("model")
     if not bin_path or not os.path.exists(bin_path):
         raise RuntimeError("Percorso 'tts.piper.binary' non valido o mancante.")
     if not model_path or not os.path.exists(model_path):
-        raise RuntimeError("Percorso 'tts.piper.model' non valido o mancante.")
+        raise RuntimeError(f"Percorso del modello '{model_path}' non valido o mancante.")
     return bin_path, model_path
 
-def _piper_tts_to_wav(text: str, wav_path: str):
-    bin_path, model_path = _piper_check()
+def _piper_tts_to_wav(text: str, wav_path: str, model_path: str):
+    bin_path, model_path = _piper_check(model_path)
     speaker = str(PIPER_CFG.get("speaker", 0))
     length_scale = str(PIPER_CFG.get("length_scale", 1.0))
     noise_scale = str(PIPER_CFG.get("noise_scale", 0.667))
@@ -186,14 +197,10 @@ def _wav_to_ogg_opus(wav_path: str, ogg_path: str):
 async def tts_reply_and_send_voice(update: Update, context: ContextTypes.DEFAULT_TYPE, reply_text: str):
     if not TTS_ENABLED or TTS_ENGINE != "piper":
         return
-    try:
-        _piper_check()
-    except Exception as e:
-        try:
-            await update.message.reply_text(f"🔇 TTS disabilitato: {e}")
-        except Exception:
-            pass
-        return
+    voice_name = _get_voice_for_chat(update.effective_chat.id)
+    model_path = _get_piper_model_path_for_voice(voice_name)
+    if not model_path:
+        return # Voce non valida
 
     max_chars = int(PIPER_CFG.get("max_chars", 600))
     tts_text = (reply_text or "").strip()
@@ -207,7 +214,7 @@ async def tts_reply_and_send_voice(update: Update, context: ContextTypes.DEFAULT
         ogg_path = os.path.join(tmpd, "out.ogg")
         loop = asyncio.get_running_loop()
         try:
-            await loop.run_in_executor(None, _piper_tts_to_wav, tts_text, wav_path)
+            await loop.run_in_executor(None, _piper_tts_to_wav, tts_text, wav_path, model_path)
             await loop.run_in_executor(None, _wav_to_ogg_opus, wav_path, ogg_path)
         except Exception as e:
             try:
@@ -233,21 +240,46 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message or not _is_allowed(update.effective_chat.id):
         return
     model = _get_model_for_chat(update.effective_chat.id)
+    voice = _get_voice_for_chat(update.effective_chat.id)
     tts_status = "attivo" if TTS_ENABLED else "spento"
+    voices_list_str = ", ".join(TTS_VOICES)
     body = (
         "👋 Ciao! Questo bot inoltra i tuoi messaggi a <b>app-ollama.py</b> e ti restituisce la risposta.<br><br>"
         f"• Endpoint: <code>{_html(APP_BASE_URL)}</code><br>"
         f"• Modello attuale: <code>{_html(model)}</code><br>"
+        f"• Voci disponibili: <code>{_html(voices_list_str)}</code><br>"
+        f"• Voce attuale: <code>{_html(voice)}</code><br>"
         f"• TTS: <b>{_html(tts_status)}</b><br><br>"
         "<b>Comandi</b><br>"
         "• <code>/model &lt;nome_modello&gt;</code><br>"
+        "• <code>/voice &lt;nome_voce&gt;</code><br>"
         "• <code>/health</code><br>"
+        "• <code>/help</code> o <code>/menu</code> per la lista dei comandi<br>"
         "• invia <b>messaggi vocali</b> per trascrizione e risposta"
     )
     try:
         await update.message.reply_text(body, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
     except BadRequest:
-        await update.message.reply_text(f"Endpoint: {APP_BASE_URL}\nModello: {model}\nTTS: {tts_status}")
+        await update.message.reply_text(f"Endpoint: {APP_BASE_URL}\nModello: {model}\nVoce: {voice}\nTTS: {tts_status}")
+
+async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not update.message or not _is_allowed(update.effective_chat.id):
+        return
+    voices_list_str = ", ".join(TTS_VOICES)
+    help_text = (
+        "🤖 <b>Comandi disponibili:</b>\n\n"
+        "• <code>/start</code> - Avvia il bot e mostra le info di base.\n"
+        "• <code>/model &lt;nome&gt;</code> - Imposta il modello Ollama per la chat.\n"
+        "• <code>/voice &lt;nome_voce&gt;</code> - Imposta la voce TTS. Voci disponibili: <code>{voices_list_str}</code>\n"
+        "• <code>/health</code> - Controlla lo stato del server Ollama.\n"
+        "• <code>/help</code> o <code>/menu</code> - Mostra questa lista di comandi.\n\n"
+        "Puoi anche inviare un <b>messaggio vocale</b> per ottenere una risposta vocale."
+    ).format(voices_list_str=_html(voices_list_str))
+    
+    try:
+        await update.message.reply_text(help_text, parse_mode=ParseMode.HTML)
+    except BadRequest:
+        await update.message.reply_text("Si è verificato un errore nella formattazione del messaggio di aiuto.")
 
 async def cmd_model(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message or not _is_allowed(update.effective_chat.id):
@@ -263,6 +295,32 @@ async def cmd_model(update: Update, context: ContextTypes.DEFAULT_TYPE):
     _set_model_for_chat(update.effective_chat.id, model)
     await update.message.reply_text(
         f"✅ Modello impostato su: <code>{_html(model)}</code>",
+        parse_mode=ParseMode.HTML,
+    )
+
+async def cmd_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not update.message or not _is_allowed(update.effective_chat.id):
+        return
+    if not TTS_VOICES:
+        await update.message.reply_text("Non ci sono voci TTS configurate.")
+        return
+    if not context.args:
+        current_voice = _get_voice_for_chat(update.effective_chat.id)
+        voices_list_str = ", ".join(TTS_VOICES)
+        await update.message.reply_text(
+            f"Voce TTS attuale: <code>{_html(current_voice)}</code>\nVoci disponibili: <code>{_html(voices_list_str)}</code>\nUsa: <code>/voice &lt;nome_voce&gt;</code>",
+            parse_mode=ParseMode.HTML,
+        )
+        return
+    voice = " ".join(context.args).strip().lower()
+    print(f"[DEBUG] Voce richiesta: '{voice}', Voci disponibili: {TTS_VOICES}", file=sys.stderr)
+    if voice not in TTS_VOICES_MAP:
+        voices_list_str = ", ".join(TTS_VOICES)
+        await update.message.reply_text(f"⚠️ Voce non valida. Scegli tra: {voices_list_str}.")
+        return
+    _set_voice_for_chat(update.effective_chat.id, voice)
+    await update.message.reply_text(
+        f"✅ Voce TTS impostata su: <code>{_html(voice)}</code>",
         parse_mode=ParseMode.HTML,
     )
 
@@ -307,62 +365,63 @@ async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await tts_reply_and_send_voice(update, context, reply)
 
 async def on_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not update.message or not _is_allowed(update.effective_chat.id):
+    """Gestisce i messaggi vocali: li trascrive, interroga l'app Ollama e risponde."""
+    if not update.message or not update.message.voice or not _is_allowed(update.effective_chat.id):
         return
-    file_id = update.message.voice.file_id if update.message.voice else (
-        update.message.audio.file_id if update.message.audio else None
-    )
-    if not file_id:
-        return
+
+    reply = ""
+
     await context.bot.send_chat_action(chat_id=update.effective_chat.id, action=ChatAction.TYPING)
+
     try:
-        tg_file = await context.bot.get_file(file_id)
-        ogg_bytes = await tg_file.download_as_bytearray()
-    except Exception as e:
-        await update.message.reply_text(f"💥 Errore nel download dell'audio: {e}")
-        return
-    try:
-        await update.message.reply_text("📝 Sto trascrivendo il messaggio vocale…")
-        text = await transcribe_voice_ogg_to_text(bytes(ogg_bytes))
-        if not text:
-            await update.message.reply_text("⚠️ Non sono riuscito a capire il contenuto audio.")
+        ogg_file = await update.message.voice.get_file()
+        ogg_buffer = BytesIO()
+        await ogg_file.download_to_memory(ogg_buffer)
+        ogg_bytes = ogg_buffer.getvalue()
+
+        text_in = await transcribe_voice_ogg_to_text(ogg_bytes)
+
+        if not text_in:
+            await update.message.reply_text("Non sono riuscito a trascrivere il messaggio vocale.")
             return
-        await update.message.reply_text(f"✍️ Trascrizione: {text}")
+
+        model = _get_model_for_chat(update.effective_chat.id)
+        async with aiohttp.ClientSession() as session:
+            reply = await query_app_ollama(session, text_in, model)
+        
+        reply = sanitize_response(reply)
+
+        for chunk in chunk_text(reply):
+            try:
+                await update.message.reply_text(chunk)
+            except TelegramError:
+                await update.message.reply_text(chunk)
+
     except Exception as e:
-        await update.message.reply_text(f"💥 Errore in trascrizione: {e}\nAssicurati di avere ffmpeg e faster-whisper.")
-        return
-    model = _get_model_for_chat(update.effective_chat.id)
-    await context.bot.send_chat_action(chat_id=update.effective_chat.id, action=ChatAction.TYPING)
-    async with aiohttp.ClientSession() as session:
-        reply = await query_app_ollama(session, text, model)
-    reply = sanitize_response(reply)
-    for chunk in chunk_text(reply):
-        try:
-            await update.message.reply_text(chunk)
-        except TelegramError:
-            await update.message.reply_text(chunk)
+        print(f"[ERRORE] Errore durante la gestione del messaggio vocale: {e}", file=sys.stderr)
+        await update.message.reply_text("Si è verificato un errore durante l'elaborazione del messaggio vocale.")
+        reply = f"Si è verificato un errore: {e}"
+
     await tts_reply_and_send_voice(update, context, reply)
 
-# =============== Error handler ===============
-async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
-    print(f"[PTB ERROR] Update: {update}\nException: {context.error}", file=sys.stderr)
 
 # =============== Main ===============
 def main():
-    print(f"[INFO] Avvio Telegram bridge → {APP_BASE_URL} | default model: {DEFAULT_MODEL}", file=sys.stderr)
+    print(f"[INFO] Avvio Telegram bridge v.1.06 gemini → {APP_BASE_URL} | default model: {DEFAULT_MODEL}", file=sys.stderr)
     if ALLOWED_CHAT_IDS:
         print(f"[INFO] Chat autorizzate: {sorted(ALLOWED_CHAT_IDS)}", file=sys.stderr)
     if TTS_ENABLED:
-        print("[INFO] TTS Piper abilitato", file=sys.stderr)
+        voices_list_str = ", ".join(TTS_VOICES)
+        print(f"[INFO] TTS Piper abilitato con voci: {voices_list_str}", file=sys.stderr)
 
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", cmd_start))
+    app.add_handler(CommandHandler(["help", "menu"], cmd_help))
     app.add_handler(CommandHandler("model", cmd_model))
+    app.add_handler(CommandHandler("voice", cmd_voice))
     app.add_handler(CommandHandler("health", cmd_health))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
     app.add_handler(MessageHandler(filters.VOICE, on_voice))
-    app.add_handler(MessageHandler(filters.AUDIO, on_voice))
-    app.add_error_handler(on_error)
     app.run_polling(allowed_updates=Update.ALL_TYPES, close_loop=False)
 
 if __name__ == "__main__":
