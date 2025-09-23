@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block title %}Gestione PDF{% endblock %}
+{% block content %}
+
+<h2 class="mb-4">Gestione PDF</h2>
+
+{% if log_messages %}
+<div class="alert alert-secondary">
+  <h5 class="mb-2">Log operazioni:</h5>
+  <ul class="mb-0">
+    {% for msg in log_messages %}
+      <li><code>{{ msg }}</code></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="mb-4">
+  <input type="file" name="pdfs" multiple accept="application/pdf" class="form-control mb-2" required>
+  <button type="submit" class="btn btn-success">Carica PDF</button>
+</form>
+
+<h4>PDF caricati</h4>
+<ul class="list-group mb-4">
+  {% for pdf in pdf_files %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <span>{{ pdf }}</span>
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary btn-sm" onclick="visualizzaPdf('{{ pdf }}')">Visualizza</button>
+      
+      <form action="{{ url_for('delete_pdf_route', filename=pdf) }}" method="post" class="m-0">
+
+        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+      </form>
+    </div>
+  </li>
+  {% else %}
+  <li class="list-group-item text-muted">Nessun PDF caricato</li>
+  {% endfor %}
+</ul>
+
+<canvas id="pdfCanvas" class="border w-100" style="max-width:800px;"></canvas>
+
+<script>
+  const pdfCanvas = document.getElementById('pdfCanvas');
+  const pdfCtx = pdfCanvas.getContext('2d');
+
+  function visualizzaPdf(filename) {
+    const url = `/pdfs/${filename}`;
+    fetch(url)
+      .then(response => response.arrayBuffer())
+      .then(data => {
+        const typedarray = new Uint8Array(data);
+        pdfjsLib.getDocument(typedarray).promise.then(pdf => {
+          pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 1.5 });
+            pdfCanvas.height = viewport.height;
+            pdfCanvas.width = viewport.width;
+            const renderContext = {
+              canvasContext: pdfCtx,
+              viewport: viewport
+            };
+            page.render(renderContext);
+          });
+        });
+      });
+  }
+</script>
+
+{% endblock %}

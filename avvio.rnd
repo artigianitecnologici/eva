@@ -1,0 +1,23 @@
+# 1) dipendenze Python
+python3 -m venv myenv
+source myenv/bin/activate
+pip install -r requirements.txt
+
+# 2) dipendenze di sistema + piper
+sudo apt install -y ffmpeg pipx
+pipx install piper-tts
+
+# 3) crea cartelle e config
+mkdir -p config log models/piper
+# (incolla i due JSON nei rispettivi file in config/)
+
+# 4) scarica almeno una voce piper (Paola)
+cd models/piper
+wget https://huggingface.co/rhasspy/piper-voices/resolve/main/it/it_IT/paola/medium/it_IT-paola-medium.onnx
+wget https://huggingface.co/rhasspy/piper-voices/resolve/main/it/it_IT/paola/medium/it_IT-paola-medium.onnx.json
+cd ../../
+
+# 5) avvia servizi
+ollama serve
+python app-ollama.py
+python tg_ollama_bridge.py

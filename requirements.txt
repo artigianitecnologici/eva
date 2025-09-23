@@ -1,0 +1,10 @@
+psutil
+py-cpuinfo
+pandas
+ollama
+flask
+requests
+python-telegram-bot>=20.7,<21
+aiohttp>=3.9
+faster-whisper>=1.0
+piper-tts

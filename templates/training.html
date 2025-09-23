@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Interfaccia di Addestramento - MARRtino Bot</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-lg rounded-lg">
+        <h1 class="text-2xl font-bold mb-4">Interfaccia di Addestramento del Chatbot</h1>
+        
+        <!-- Pulsante per tornare alla pagina principale -->
+        <div class="mb-4">
+            <a href="/" class="bg-green-500 text-white p-2 rounded">Torna alla Chat</a>
+        </div>
+
+        <!-- Sezione di input per l'aggiunta di nuove domande, risposte e argomento -->
+        <div class="mb-6">
+            <h2 class="text-xl mb-2">Aggiungi Nuova Conoscenza</h2>
+            
+            <input type="text" id="newQuestion" class="border p-2 w-full mb-2" placeholder="Inserisci la domanda">
+            
+            <input type="text" id="newAnswer" class="border p-2 w-full mb-2" placeholder="Inserisci la risposta">
+            
+            <select id="newTopic" class="border p-2 w-full mb-2">
+                <option value="" disabled selected>Seleziona un argomento</option>
+                <option value="generale">Generale</option>
+                <option value="colosseo">Colosseo</option>
+                <option value="geografia">Geografia</option>
+                <option value="storia">Storia</option>
+                <option value="tecnologia">Tecnologia</option>
+            </select>
+            
+            <button id="addKnowledgeBtn" class="bg-blue-500 text-white p-2 rounded">Aggiungi</button>
+        </div>
+
+        <!-- Sezione per la visualizzazione e la gestione della conoscenza attuale -->
+        <div>
+            <h2 class="text-xl mb-2">Conoscenza Attuale</h2>
+            <ul id="knowledgeList" class="list-disc pl-6"></ul>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Carica la conoscenza esistente
+            function loadKnowledge() {
+                $.getJSON('/get_knowledge', function(data) {
+                    let knowledgeHtml = '';
+                    $.each(data, function(index, item) {
+                        knowledgeHtml += `<li class="mb-2">
+                            <strong>Domanda:</strong> ${item.pattern}<br>
+                            <strong>Risposta:</strong> ${item.risposta}<br>
+                            <strong>Argomento:</strong> ${item.argomento}<br>
+                            <button class="text-red-500 ml-2 delete-btn" data-question="${item.pattern}">Elimina</button>
+                        </li>`;
+                    });
+                    $('#knowledgeList').html(knowledgeHtml);
+                });
+            }
+
+            // Aggiungi nuova conoscenza
+            $('#addKnowledgeBtn').click(function() {
+                const question = $('#newQuestion').val().trim();
+                const answer = $('#newAnswer').val().trim();
+                const topic = $('#newTopic').val();
+
+                if (question && answer && topic) {
+                    $.ajax({
+                        url: '/teach',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ 
+                            "question": question, 
+                            "answer": answer, 
+                            "topic": topic 
+                        }),
+                        success: function(response) {
+                            alert(response.message);
+                            loadKnowledge();
+                            $('#newQuestion').val('');
+                            $('#newAnswer').val('');
+                            $('#newTopic').val('');
+                        }
+                    });
+                } else {
+                    alert('Compila tutti i campi e seleziona un argomento.');
+                }
+            });
+
+            // Elimina una conoscenza
+            $(document).on('click', '.delete-btn', function() {
+                const question = $(this).data('question');
+                if (confirm('Vuoi davvero eliminare questa conoscenza?')) {
+                    $.ajax({
+                        url: '/delete_knowledge',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ "question": question }),
+                        success: function(response) {
+                            alert(response.message);
+                            loadKnowledge();
+                        }
+                    });
+                }
+            });
+
+            loadKnowledge();
+        });
+    </script>
+</body>
+</html>

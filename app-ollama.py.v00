@@ -1,0 +1,243 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+import os
+import sys
+import json
+from time import time
+from datetime import datetime
+from threading import Thread
+
+from flask import Flask, render_template, request, jsonify
+from ollama import Client
+import requests
+
+# ========= Config & Paths =========
+# BASE_PATH relativo alla directory corrente (./)
+BASE_PATH = os.path.abspath("./")
+CONFIG_PATH = os.path.join(BASE_PATH, "config", "config.json")
+LOG_PATH = os.path.join(BASE_PATH, "log")
+os.makedirs(LOG_PATH, exist_ok=True)
+
+def _now():
+    return datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+def log_error(msg: str):
+    """Logga un errore su stderr + log/error.txt"""
+    line = f"[{_now()}] [ERROR] {msg}"
+    print(line, file=sys.stderr)
+    try:
+        with open(os.path.join(LOG_PATH, "error.txt"), "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+def log_info(msg: str):
+    """Log informativo su stderr"""
+    print(f"[{_now()}] [INFO] {msg}", file=sys.stderr)
+
+# ========= Caricamento config.json =========
+if not os.path.exists(CONFIG_PATH):
+    log_error(f"File di configurazione mancante: {CONFIG_PATH}")
+    sys.exit(1)
+
+try:
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        config = json.load(f)
+except Exception as e:
+    log_error(f"Impossibile leggere/parsare il config: {CONFIG_PATH} — {e}")
+    sys.exit(1)
+
+OLLAMA_BASE = config.get("ollama_host", "http://127.0.0.1:11434")
+DEFAULT_MODEL = config.get("default_model", "llama3:latest")
+
+DEFAULT_PROMPT = (
+    "Sei MARRtino, un robot sociale italiano, simpatico e birichino. "
+    "Quando qualcuno ti fa una domanda personale o sulla tua origine, "
+    "rispondi in modo coerente con la tua identità.\n"
+    "Chi ti ha creato? Robotics-3D.\n"
+    "Chi è Smarrtino? Smarrtino è un robot birichino creato dalla collaborazione "
+    "fra Robotics-3D e i ricercatori dell'Università La Sapienza di Roma."
+)
+PROMPT_SYSTEM = config.get("prompt_system", DEFAULT_PROMPT)
+
+# ========= Client Ollama =========
+ollama_client = Client(host=OLLAMA_BASE)
+
+# ========= Utility =========
+def log_to_file(question, bot_answer):
+    data_ora = _now()
+    try:
+        with open(os.path.join(LOG_PATH, "log.txt"), "a", encoding="utf-8") as log_file:
+            report = f"{data_ora}\n[QUESTION]: {question};[OLLAMA]: {bot_answer}"
+            log_file.write(report + "\n")
+        if bot_answer:
+            with open(os.path.join(LOG_PATH, "user.txt"), "a", encoding="utf-8") as bot_file:
+                bot_file.write("user: " + str(question) + "\n")
+                bot_file.write("bot: " + str(bot_answer) + "\n")
+    except Exception as e:
+        log_error(f"Errore scrivendo i log conversazione: {e}")
+
+def split_string(msg):
+    # accetta stringhe o dict {"content": "..."}
+    print(f"[DEBUG] Risposta grezza del modello: {msg}", file=sys.stderr)
+    if isinstance(msg, str):
+        return msg
+    if isinstance(msg, dict):
+        c = msg.get("content")
+        if isinstance(c, str):
+            return c
+    return "(errore nella risposta del modello: contenuto non leggibile)"
+
+def send_to_ros2(text, url="http://127.0.0.1:5001/send"):
+    try:
+        requests.get(url, params={"text": text}, timeout=3)
+        print(f"[DEBUG] ✅ Inviato al nodo ROS: {text}", file=sys.stderr)
+    except Exception as e:
+        print(f"[DEBUG] ❌ Errore nell'invio al nodo ROS: {e}", file=sys.stderr)
+
+def check_ollama_connectivity(raise_on_fail=False):
+    """Verifica connessione ad Ollama e logga un errore esplicito se fallisce."""
+    tags_url = f"{OLLAMA_BASE.rstrip('/')}/api/tags"
+    try:
+        r = requests.get(tags_url, timeout=5)
+        r.raise_for_status()
+        _ = r.json()
+        log_info(f"Connessione a Ollama OK su {OLLAMA_BASE}")
+        return True
+    except Exception as e:
+        log_error(
+            f"Impossibile connettersi a Ollama su {OLLAMA_BASE} — {e}\n"
+            "Suggerimenti: verificare che 'ollama serve' sia attivo, porta 11434 in ascolto su 127.0.0.1, "
+            "e che 'ollama_host' in config/config.json sia corretto."
+        )
+        if raise_on_fail:
+            raise
+        return False
+
+def get_response(messages: list, model_name: str = DEFAULT_MODEL):
+    """
+    Chiede una risposta al modello e normalizza l'output in un dict: {"content": "..."}.
+    Gestisce sia il formato 'oggetto' (response.message.content) sia 'dict'.
+    """
+    print(f"[DEBUG] Messaggi inviati al modello ({model_name}): {messages}", file=sys.stderr)
+    try:
+        start_time = time()
+        response = ollama_client.chat(model=model_name, messages=messages)
+        elapsed_time = time() - start_time
+        print(f"[DEBUG] Risposta completa ricevuta: {response}", file=sys.stderr)
+        print(f"[DEBUG] Tempo di risposta del modello: {elapsed_time:.2f} secondi", file=sys.stderr)
+
+        # --- Normalizzazione contenuto ---
+        content = None
+
+        # Caso 1: oggetto con attributi (tipico in alcune versioni del client)
+        try:
+            msg_obj = getattr(response, "message", None)
+            if msg_obj is not None:
+                content = getattr(msg_obj, "content", None)
+        except Exception:
+            pass
+
+        # Caso 2: dict (altre versioni/setup)
+        if content is None and isinstance(response, dict):
+            msg_dict = response.get("message")
+            if isinstance(msg_dict, dict):
+                content = msg_dict.get("content")
+
+        # Caso 3: alcuni wrapper potrebbero restituire direttamente {"content": "..."}
+        if content is None and isinstance(response, dict) and "content" in response:
+            content = response["content"]
+
+        if not isinstance(content, str) or not content.strip():
+            log_error("Formato risposta inatteso da Ollama: impossibile estrarre 'message.content'.")
+            return {"content": "(errore: formato risposta inatteso da Ollama)"}
+
+        return {"content": content}
+
+    except Exception as e:
+        log_error(f"Chiamata a Ollama fallita (host: {OLLAMA_BASE}, model: {model_name}) — {e}")
+        return {"content": f"(errore: impossibile contattare Ollama su {OLLAMA_BASE} — {e})"}
+
+# ========= Flask =========
+app = Flask(__name__)
+app.static_folder = 'static'
+
+@app.route("/")
+def home():
+    try:
+        tags_url = f"{OLLAMA_BASE.rstrip('/')}/api/tags"
+        response = requests.get(tags_url, timeout=5)
+        response.raise_for_status()
+        model_list = response.json().get("models", [])
+        model_names = [(m.get("name") or m.get("model")) for m in model_list if (m.get("name") or m.get("model"))]
+        print(f"[DEBUG] Modelli disponibili: {model_names}", file=sys.stderr)
+        if not model_names:
+            model_names = [DEFAULT_MODEL]
+    except Exception as e:
+        log_error(f"Errore durante il recupero modelli da {OLLAMA_BASE} — {e}")
+        model_names = [DEFAULT_MODEL]
+    return render_template("indexollama.html", models=model_names)
+
+@app.route("/get")
+def get_bot_response():
+    myquery = (request.args.get('msg') or '').strip()
+    model_name = (request.args.get('model') or DEFAULT_MODEL).strip()
+    print(f"[DEBUG] Messaggio ricevuto dal client: {myquery}", file=sys.stderr)
+    print(f"[DEBUG] Modello selezionato: {model_name}", file=sys.stderr)
+
+    messages = [
+        {"role": "system", "content": PROMPT_SYSTEM},
+        {"role": "user", "content": myquery}
+    ]
+    new_message = get_response(messages, model_name)
+    msgout = split_string(new_message.get('content', new_message))
+    log_to_file(myquery, msgout)
+    return msgout
+
+@app.route('/bot')
+def bot():
+    myquery = (request.args.get('query') or '').strip()
+    model_name = (request.args.get('model') or DEFAULT_MODEL).strip()
+    print(f"[DEBUG] Richiesta /bot ricevuta: {myquery}", file=sys.stderr)
+    print(f"[DEBUG] Modello selezionato: {model_name}", file=sys.stderr)
+
+    messages = [
+        {"role": "system", "content": PROMPT_SYSTEM},
+        {"role": "user", "content": myquery}
+    ]
+    new_message = get_response(messages, model_name)
+    msgout = split_string(new_message.get('content', new_message))
+    log_to_file(myquery, msgout)
+    send_to_ros2(msgout)
+    return msgout
+
+@app.route('/json')
+def json_response():
+    myquery = (request.args.get('query') or '').strip()
+    model_name = (request.args.get('model') or DEFAULT_MODEL).strip()
+    print(f"[DEBUG] Richiesta /json ricevuta: {myquery}", file=sys.stderr)
+    print(f"[DEBUG] Modello selezionato: {model_name}", file=sys.stderr)
+
+    messages = [
+        {"role": "system", "content": PROMPT_SYSTEM},
+        {"role": "user", "content": myquery}
+    ]
+    new_message = get_response(messages, model_name)
+    msg = new_message.get('content', new_message)
+    return jsonify({"response": msg, "action": "ok"})
+
+@app.route('/healthz')
+def healthz():
+    """Endpoint di health-check che verifica la raggiungibilità di Ollama."""
+    ok = check_ollama_connectivity(raise_on_fail=False)
+    return ("ok", 200) if ok else ("ollama unreachable", 503)
+
+if __name__ == '__main__':
+    log_info(
+        f"Avvio ChatBot with Ollama v1.04 | BASE_PATH={BASE_PATH} | OLLAMA_BASE={OLLAMA_BASE} | "
+        f"DEFAULT_MODEL={DEFAULT_MODEL}"
+    )
+    # Check (non blocca l'avvio)
+    check_ollama_connectivity(raise_on_fail=False)
+
+    app.run(host='0.0.0.0', debug=True, port=5000)

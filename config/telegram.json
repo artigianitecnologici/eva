@@ -1,0 +1,31 @@
+
+{
+  "bot_token": "8462414864:AAH_f3eTjUoBgDVNLLad8H0MdlqSZfwujCo",
+  "app_base_url": "http://127.0.0.1:5000/json",
+  "default_model": "gemma3:4b",
+  "allowed_chat_ids": [],
+  "timeout_sec": 60,
+
+  "asr": {
+    "backend": "faster-whisper",
+    "model": "medium",         
+    "language": "it",          
+    "compute_type": "int8",    
+    "beam_size": 5              
+  },
+  "tts": {
+    "enabled": true,
+    "engine": "piper",
+    "piper": {
+      "binary": "/home/ubuntu/.local/bin/piper",
+      "model": "./models/piper/it_IT-paola-medium.onnx",
+      "speaker": 0,
+      "length_scale": 1.2,
+      "noise_scale": 0.667,
+      "noise_w": 0.8,
+      "sentence_silence": 0.3,
+      "max_chars": 600
+    }
+  }
+}
+

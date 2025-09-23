@@ -1,0 +1,23 @@
+=== BENCHMARK LOG ===
+
+📊 Avvio benchmark per modelli Ollama con domande singole
+
+🔍 INFO SISTEMA:
+   host: NBSECURITY
+   cpu_brand: Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz
+   cpu_type: i5-1035G1
+   cpu_freq_base_mhz: 0.0
+   cpu_freq_max_mhz: 0.0
+   cpu_freq_current_mhz: 1190.4
+   cores: 4
+   threads: 8
+   ram_total_gb: 7.64
+   os: Linux 6.6.87.2-microsoft-standard-WSL2
+   architecture: x86_64
+   gpu: Nessuna GPU rilevata
+
+🧪 Inizio test per il modello: llama3:latest
+
+➡️ Domanda: Ciao! Sai contare da uno a dieci?
+⏱️ Timeout su: Ciao! Sai contare da uno a dieci?
+➡️ Domanda: Bravissimo! E qual è la capitale d'Italia?

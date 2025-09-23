@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<h1 class="mb-4">Ollama PDF RAG</h1>
+
+<!-- Form per porre la domanda -->
+<form id="askForm" class="mb-3">
+  <input type="text" name="question" class="form-control mb-2" placeholder="Fai una domanda..." required>
+
+  <select name="model" class="form-select mb-2">
+    {% if models %}
+      {% for model in models %}
+        <option value="{{ model }}">{{ model }}</option>
+      {% endfor %}
+    {% else %}
+      <option disabled selected>Nessun modello disponibile</option>
+    {% endif %}
+  </select>
+
+  <button type="submit" class="btn btn-primary">Invia</button>
+</form>
+
+<!-- Spinner di caricamento -->
+<div id="spinner" class="text-center my-3" style="display: none;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Caricamento...</span>
+  </div>
+</div>
+
+<!-- Risposta del modello -->
+<div id="answer-box" class="alert alert-info d-none"></div>
+
+<!-- Script per inviare richiesta e visualizzare risposta + tempo -->
+<script>
+  document.getElementById("askForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    // Mostra spinner
+    document.getElementById("spinner").style.display = "block";
+
+    fetch("/ask", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      const box = document.getElementById("answer-box");
+      box.classList.remove("d-none");
+
+      // Nascondi spinner
+      document.getElementById("spinner").style.display = "none";
+
+      if (data.answer) {
+        box.innerHTML = `
+          <strong>Risposta:</strong> ${data.answer}<br>
+          <small class="text-muted">Tempo di risposta: ${data.time} secondi</small>
+        `;
+      } else {
+        box.innerHTML = "<strong>Errore:</strong> " + (data.error || "Errore sconosciuto");
+      }
+    })
+    .catch(err => {
+      document.getElementById("spinner").style.display = "none";
+      document.getElementById("answer-box").innerHTML = "<strong>Errore di rete:</strong> " + err;
+    });
+  });
+</script>
+
+{% endblock %}
