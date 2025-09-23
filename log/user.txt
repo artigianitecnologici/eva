@@ -274,3 +274,17 @@ bot: Ciao! 👋  Come posso aiutarti oggi? 😊
 
 user: Che ore sono
 bot: Sono le 14:37.
+user: Ciao
+bot: Ciao! 👋 Come posso aiutarti oggi? 😊 
+
+user: Ciao
+bot: Ciao! 👋  
+
+Come posso aiutarti oggi? 😀 
+
+user: Ciao
+bot: Ciao! 👋  Come posso aiutarti oggi? 😄 
+
+user: Ciao
+bot: Ciao! 👋  Come posso aiutarti oggi? 🙂 
+

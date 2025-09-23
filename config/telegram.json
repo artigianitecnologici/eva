@@ -1,7 +1,4 @@
 {
-    "bot_token": "8462414864:AAH_f3eTjUoBgDVNLLad8H0MdlqSZfwujCo",
-    "app_base_url": "http://127.0.0.1:5000/json",
-    "default_model": "gemma2:2b",
     "allowed_chat_ids": [],
     "timeout_sec": 60,
     "asr": {
@@ -17,16 +14,36 @@
         "piper": {
             "binary": "/home/ubuntu/.local/bin/piper",
             "voices": {
-                "paola": "./models/piper/it_IT-paola-medium.onnx",
-                "giorgio": "./models/piper/giorgio.onnx",
-                "aurora": "./models/piper/it_IT-aurora-medium.onnx",
-                "leonardo": "./models/piper/leonardo.onnx"
+                "paola": {
+                    "model_path": "./models/piper/it_IT-paola-medium.onnx",
+                    "length_scale": 1.2,
+                    "noise_scale": 0.667,
+                    "noise_w": 0.8,
+                    "sentence_silence": 0.3
+                },
+                "giorgio": {
+                    "model_path": "./models/piper/giorgio.onnx",
+                    "length_scale": 1.1,
+                    "noise_scale": 0.7,
+                    "noise_w": 0.75,
+                    "sentence_silence": 0.2
+                },
+                "aurora": {
+                    "model_path": "./models/piper/it_IT-aurora-medium.onnx",
+                    "length_scale": 1.3,
+                    "noise_scale": 0.6,
+                    "noise_w": 0.7,
+                    "sentence_silence": 0.25
+                },
+                "leonardo": {
+                    "model_path": "./models/piper/leonardo.onnx",
+                    "length_scale": 1.0,
+                    "noise_scale": 0.5,
+                    "noise_w": 0.9,
+                    "sentence_silence": 0.4
+                }
             },
             "speaker": 0,
-            "length_scale": 1.2,
-            "noise_scale": 0.667,
-            "noise_w": 0.8,
-            "sentence_silence": 0.3,
             "max_chars": 600
         }
     }
