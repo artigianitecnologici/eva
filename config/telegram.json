@@ -3,7 +3,8 @@
     "timeout_sec": 60,
     "asr": {
         "backend": "faster-whisper",
-        "model": "small",
+        "model": "medium",
+        "device": "cpu",
         "language": "it",
         "compute_type": "int8",
         "beam_size": 5

@@ -77,3 +77,8 @@ pipx install piper-tts
 
 # test connessione con ollama
  curl -s http://192.168.1.13:11434/api/tags | jq
+
+# esempio di .env
+BOT_TOKEN=
+APP_BASE_URL=http://127.0.0.1:5000/json
+DEFAULT_MODEL=gemma2:2b

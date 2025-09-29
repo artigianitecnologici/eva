@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+# file : tg_ollama_bridge.py
 import os
 import sys
 import json
@@ -110,6 +111,25 @@ async def query_app_ollama(session: aiohttp.ClientSession, text: str, model: str
 # =============== ASR: Faster-Whisper ===============
 _whisper_model = None
 
+# def _load_faster_whisper_model():
+#     global _whisper_model
+#     if _whisper_model is not None:
+#         return _whisper_model
+#     try:
+#         from faster_whisper import WhisperModel
+#     except Exception as e:
+#         raise RuntimeError(f"faster-whisper non installato: {e}. Esegui: pip install faster-whisper") from e
+#     model_name = ASR_CFG.get("model", "small")
+#     compute_type = ASR_CFG.get("compute_type", "int8")
+#     _whisper_model = WhisperModel(model_name, compute_type=compute_type)
+#     return _whisper_model
+
+# def _ffmpeg_convert_to_wav16k_mono(in_path: str, out_path: str):
+#     cmd = ["ffmpeg", "-y", "-i", in_path, "-ac", "1", "-ar", "16000", "-f", "wav", out_path]
+#     result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#     if result.returncode != 0:
+#         raise RuntimeError(f"ffmpeg errore: {result.stderr.decode(errors='ignore')}")
+
 def _load_faster_whisper_model():
     global _whisper_model
     if _whisper_model is not None:
@@ -118,33 +138,71 @@ def _load_faster_whisper_model():
         from faster_whisper import WhisperModel
     except Exception as e:
         raise RuntimeError(f"faster-whisper non installato: {e}. Esegui: pip install faster-whisper") from e
+
     model_name = ASR_CFG.get("model", "small")
+    # leggi da config, ma default a CPU per evitare problemi cuDNN
+    device = (ASR_CFG.get("device") or "cpu").lower()
     compute_type = ASR_CFG.get("compute_type", "int8")
-    _whisper_model = WhisperModel(model_name, compute_type=compute_type)
+
+    # se CPU, disattiva esplicitamente l’uso di CUDA in CTranslate2
+    if device == "cpu":
+        os.environ["CT2_USE_CUDA"] = "0"
+
+    # istanzia il modello
+    _whisper_model = WhisperModel(model_name, device=device, compute_type=compute_type)
     return _whisper_model
 
-def _ffmpeg_convert_to_wav16k_mono(in_path: str, out_path: str):
-    cmd = ["ffmpeg", "-y", "-i", in_path, "-ac", "1", "-ar", "16000", "-f", "wav", out_path]
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if result.returncode != 0:
-        raise RuntimeError(f"ffmpeg errore: {result.stderr.decode(errors='ignore')}")
-
 async def transcribe_voice_ogg_to_text(ogg_bytes: bytes) -> str:
+    import shutil
+    if not shutil.which("ffmpeg"):
+        raise RuntimeError("ffmpeg non trovato nel PATH. Installa ffmpeg (es. sudo apt-get install ffmpeg).")
+
     with tempfile.TemporaryDirectory() as tmpd:
         ogg_path = os.path.join(tmpd, "voice.ogg")
         wav_path = os.path.join(tmpd, "voice.wav")
+
+        # salva l'ogg
         with open(ogg_path, "wb") as f:
             f.write(ogg_bytes)
+
+        # conversione → WAV mono 16 kHz (inline, niente helper esterno)
+        def _convert_to_wav():
+            cmd = ["ffmpeg", "-y", "-i", ogg_path, "-ac", "1", "-ar", "16000", "-f", "wav", wav_path]
+            res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if res.returncode != 0:
+                raise RuntimeError(f"ffmpeg errore: {res.stderr.decode(errors='ignore')}")
+
         loop = asyncio.get_running_loop()
-        await loop.run_in_executor(None, _ffmpeg_convert_to_wav16k_mono, ogg_path, wav_path)
+        await loop.run_in_executor(None, _convert_to_wav)
+
+        # trascrizione con faster-whisper
         def _do_transcribe():
             model = _load_faster_whisper_model()
             language = ASR_CFG.get("language") or None
             beam_size = ASR_CFG.get("beam_size", 5)
             segments, info = model.transcribe(wav_path, language=language, beam_size=beam_size)
             return "".join(seg.text for seg in segments).strip()
+
         text = await loop.run_in_executor(None, _do_transcribe)
         return text or ""
+
+
+# async def transcribe_voice_ogg_to_text(ogg_bytes: bytes) -> str:
+#     with tempfile.TemporaryDirectory() as tmpd:
+#         ogg_path = os.path.join(tmpd, "voice.ogg")
+#         wav_path = os.path.join(tmpd, "voice.wav")
+#         with open(ogg_path, "wb") as f:
+#             f.write(ogg_bytes)
+#         loop = asyncio.get_running_loop()
+#         await loop.run_in_executor(None, _ffmpeg_convert_to_wav16k_mono, ogg_path, wav_path)
+#         def _do_transcribe():
+#             model = _load_faster_whisper_model()
+#             language = ASR_CFG.get("language") or None
+#             beam_size = ASR_CFG.get("beam_size", 5)
+#             segments, info = model.transcribe(wav_path, language=language, beam_size=beam_size)
+#             return "".join(seg.text for seg in segments).strip()
+#         text = await loop.run_in_executor(None, _do_transcribe)
+#         return text or ""
 
 # =============== TTS: Piper ===============
 def _get_piper_config_for_voice(voice_name: str) -> Dict[str, Any]:
