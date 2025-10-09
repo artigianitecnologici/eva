@@ -1,3 +1,5 @@
 myenv/*
 .env
 *.pyc
+models/vosk-model-it-0.22/*
+models_whisper/*

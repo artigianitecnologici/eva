@@ -9,3 +9,8 @@ aiohttp>=3.9
 faster-whisper>=1.0
 piper-tts
 python-dotenv
+vosk
+sounddevice
+whisper 
+sounddevice
+numpy

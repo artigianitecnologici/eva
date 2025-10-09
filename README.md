@@ -82,3 +82,148 @@ pipx install piper-tts
 BOT_TOKEN=
 APP_BASE_URL=http://127.0.0.1:5000/json
 DEFAULT_MODEL=gemma2:2b
+
+# installare ollama
+curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=0.12.2 sh
+
+curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=0.11.11 sh
+
+Ollama - Installazione e Configurazione su Ubuntu 24.04
+=========================================================
+
+Questa guida ti mostra come installare **Ollama** su Ubuntu 24.04, configurarlo per l'avvio automatico tramite Snap e gestirlo con `systemd`.
+
+Requisiti
+----------
+
+- Ubuntu 24.04 o superiore
+- Una connessione internet attiva
+- **Snap** già installato (preinstallato su Ubuntu 24.04)
+
+Installazione tramite Snap
+---------------------------
+
+1. **Verifica se Snap è installato**:
+
+   Apri il terminale e verifica che Snap sia installato con il seguente comando:
+
+   .. code-block:: bash
+      snap --version
+
+   Se Snap non è installato, esegui il comando per installarlo:
+
+   .. code-block:: bash
+      sudo apt update
+      sudo apt install snapd
+
+2. **Installa Ollama tramite Snap**:
+
+   Una volta che Snap è installato, esegui il comando seguente per installare **Ollama**:
+
+   .. code-block:: bash
+      sudo snap install ollama
+
+3. **Verifica l'installazione**:
+
+   Per verificare che **Ollama** sia stato correttamente installato, esegui:
+
+   .. code-block:: bash
+      ollama --version
+
+Avvio Automatico di Ollama tramite systemd
+------------------------------------------
+
+Se desideri che **Ollama** parta automaticamente all'avvio del sistema, puoi configurarlo come servizio di sistema utilizzando `systemd`.
+
+### 1. Creazione del file di servizio systemd
+
+Esegui il comando per creare il file di servizio `systemd`:
+
+.. code-block:: bash
+   sudo nano /etc/systemd/system/ollama.service
+
+Incolla il seguente contenuto nel file:
+
+.. code-block::
+
+   [Unit]
+   Description=Ollama Service
+   After=network.target
+
+   [Service]
+   ExecStart=/snap/bin/ollama serve
+   User=snap
+   Group=snap
+   Restart=always
+   RestartSec=5
+
+   [Install]
+   WantedBy=multi-user.target
+
+### 2. Ricarica systemd e abilita il servizio
+
+Ricarica la configurazione di `systemd`:
+
+.. code-block:: bash
+   sudo systemctl daemon-reload
+
+Abilita il servizio per far partire **Ollama** automaticamente all'avvio:
+
+.. code-block:: bash
+   sudo systemctl enable ollama
+
+### 3. Avvia il servizio
+
+Per avviare immediatamente il servizio **Ollama**, usa il seguente comando:
+
+.. code-block:: bash
+   sudo systemctl start ollama
+
+### 4. Verifica lo stato del servizio
+
+Per controllare se **Ollama** è attivo, esegui:
+
+.. code-block:: bash
+   sudo systemctl status ollama
+
+Aggiornamenti
+-------------
+
+Per aggiornare **Ollama** a una versione successiva tramite Snap, esegui il comando:
+
+.. code-block:: bash
+   sudo snap refresh ollama
+
+Disinstallazione
+----------------
+
+Se desideri rimuovere **Ollama**, puoi farlo con il comando:
+
+.. code-block:: bash
+   sudo snap remove ollama
+
+Note
+-----
+
+- **Snap** si occupa di aggiornamenti automatici, quindi non è necessario gestirli manualmente.
+- **systemd** offre un modo per monitorare e riavviare **Ollama** automaticamente in caso di problemi.
+
+Link utili
+----------
+
+- [Snapcraft Ollama](https://snapcraft.io/ollama)
+- [Documentazione Ollama](https://ollama.com/docs)
+
+sudo apt-get update
+sudo apt-get install -y python3 python3-pip libportaudio2 alsa-utils
+# opzionale, utile per test:
+sudo apt-get install -y sox
+
+
+
+sudo apt-get update && sudo apt-get install -y libportaudio2
+
+sudo apt-get update
+sudo apt-get install -y python3 python3-pip libportaudio2 alsa-utils
+# opzionale, utile per test:
+sudo apt-get install -y sox

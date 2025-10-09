@@ -1,0 +1,11 @@
+{
+  "model": "small",
+  "lang": "it",
+  "audio_device": "auto",
+  "samplerate": 16000,
+  "window_sec": 5.0,
+  "use_vad": false,
+  "compute_type": "int8",
+  "compute_device": "cpu",
+  "download_dir": "./models_whisper"
+}
