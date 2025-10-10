@@ -13,7 +13,7 @@
         "enabled": true,
         "engine": "piper",
         "piper": {
-            "binary": "/home/ubuntu/.local/bin/piper",
+            "binary": "/home/marrtino/.local/bin/piper",
             "voices": {
                 "paola": {
                     "model_path": "./models/piper/it_IT-paola-medium.onnx",

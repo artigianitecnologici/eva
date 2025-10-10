@@ -214,16 +214,12 @@ Link utili
 - [Snapcraft Ollama](https://snapcraft.io/ollama)
 - [Documentazione Ollama](https://ollama.com/docs)
 
-sudo apt-get update
-sudo apt-get install -y python3 python3-pip libportaudio2 alsa-utils
-# opzionale, utile per test:
-sudo apt-get install -y sox
+# Prerequisiti0
 
 
 
-sudo apt-get update && sudo apt-get install -y libportaudio2
 
-sudo apt-get update
-sudo apt-get install -y python3 python3-pip libportaudio2 alsa-utils
-# opzionale, utile per test:
-sudo apt-get install -y sox
+
+sudo apt-get update 
+sudo apt-get install -y python3 python3-pip libportaudio2 alsa-utils sox
+ 

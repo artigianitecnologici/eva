@@ -3,21 +3,85 @@
 📊 Avvio benchmark per modelli Ollama con domande singole
 
 🔍 INFO SISTEMA:
-   host: NBSECURITY
-   cpu_brand: Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz
-   cpu_type: i5-1035G1
-   cpu_freq_base_mhz: 0.0
-   cpu_freq_max_mhz: 0.0
-   cpu_freq_current_mhz: 1190.4
+   host: marrtinorobot2
+   cpu_brand: 11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz
+   cpu_type: i5-1145G7
+   cpu_freq_base_mhz: 400.0
+   cpu_freq_max_mhz: 4400.0
+   cpu_freq_current_mhz: 2431.43
    cores: 4
    threads: 8
-   ram_total_gb: 7.64
-   os: Linux 6.6.87.2-microsoft-standard-WSL2
+   ram_total_gb: 15.36
+   os: Linux 6.14.0-33-generic
    architecture: x86_64
    gpu: Nessuna GPU rilevata
 
-🧪 Inizio test per il modello: llama3:latest
+🧪 Inizio test per il modello: gemma2:2b
 
 ➡️ Domanda: Ciao! Sai contare da uno a dieci?
-⏱️ Timeout su: Ciao! Sai contare da uno a dieci?
+✅ gemma2:2b | Tempo: 9.62 sec
+💬 Risposta: Ciao! Sì, certo che sì! Ecco i numeri uno a dieci:
+
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10! 😄  
+
+Cosa vuoi fare con i numeri?  
+
+
+
+...
+
 ➡️ Domanda: Bravissimo! E qual è la capitale d'Italia?
+✅ gemma2:2b | Tempo: 5.6 sec
+💬 Risposta: La capitale d'Italia è **Roma**! 🏛️  Anche se molti lo chiamano "il cuore della città", c'è molto altro da vedere e scoprire! 😊
+
+
+Dammi un'idea di cos...
+
+➡️ Domanda: Puoi spiegarmi cos'è una stella?
+✅ gemma2:2b | Tempo: 12.28 sec
+💬 Risposta: Immagina un gran ballone enorme che si muove nel cielo! 😄  Un'astro è come un gran ballone luminoso che gira intorno a noi. 💫
+
+Ecco alcuni dettagli: 
+...
+
+➡️ Domanda: Ciao! Cos'è il Sole?
+✅ gemma2:2b | Tempo: 5.61 sec
+💬 Risposta: Ciao! Il sole è una stella gigante nel cuore del nostro sistema solare. È enorme, molto caldo e produce luce e calore che illuminano la Terra!  ✨☀️ 
+
+...
+
+➡️ Domanda: Perché la luna ci segue?
+✅ gemma2:2b | Tempo: 11.13 sec
+💬 Risposta: È una domanda davvero interessante! La Luna ci segue perché si muove intorno alla Terra.  
+
+Immagina di avere due palla, una grande e una piccola, e t...
+
+➡️ Domanda: Quanti pianeti ci sono?
+✅ gemma2:2b | Tempo: 7.19 sec
+💬 Risposta: Ci sono **8** pianeti nel sistema solare! 😎🌎
+
+Ecco i loro nomi:
+
+1. Mercúrio
+2. Venere
+3. Terra
+4. Marte
+5. Giove
+6. Saturno
+7. Urano
+8. Nettuno 
+
+
+E ...
+
+➡️ Domanda: Ciao! Perché il cielo è blu?
+✅ gemma2:2b | Tempo: 11.23 sec
+💬 Risposta: Ciao! È una domanda bellissima! 😄
+
+Il cielo sembra blu perché c'è molta luce del sole che arriva dal nostro Sole e incontra l'aria intorno a noi.  La ...
+
+➡️ Domanda: Come nascono i pesci?
+✅ gemma2:2b | Tempo: 17.81 sec
+💬 Risposta: Immagina un piccolo uovo, piccolo come un pallone! 🥚  I pesci nascono da questi uova che vengono piantate nell'acqua, ma non sono solo piccoli pesci! ...
+
+➡️ Domanda: Perché le foglie cadono?

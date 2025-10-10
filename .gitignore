@@ -3,3 +3,7 @@ myenv/*
 *.pyc
 models/vosk-model-it-0.22/*
 models_whisper/*
+models/*.zip
+handlers/__pycache__/*
+*.pyc
+handlers/__pycache__/time_it.cpython-312.pyc
