@@ -1,6 +1,6 @@
 # eva
 EVA AI 
-
+ Enhanced Virtual Assistant
 
 # prerequisite
 sudo apt install python3.12-venv

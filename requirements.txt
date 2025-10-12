@@ -14,3 +14,5 @@ sounddevice
 whisper 
 sounddevice
 numpy
+requests
+beautifulsoup4
