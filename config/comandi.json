@@ -1,0 +1,20 @@
+{
+  "prefix": "#@#",
+  "start": [
+    "avvia\\s+(programmazione|coding)",
+    "abbia\\s+(programmazione|coding)",
+    "esegui\\s+comandi",
+    "(attiva|abilita)\\s+(modalit(?:a|\\u00E0)\\s+comando|comandi)",
+    "entra\\s+in\\s+(programmazione|modalit(?:a|\\u00E0)\\s+comando)",
+    "start\\s+(coding|command|commands?)"
+  ],
+  "stop": [
+    "(fine|termina|stop|ferma|disattiva|esci)(\\s+(programmazione|coding|comandi|modalit(?:a|\\u00E0)\\s+comando))?",
+    "(end|exit)(\\s+(coding|command|commands?))?"
+  ],
+  "status": [
+    "stato\\s+(programmazione|comandi)",
+    "status\\s+(coding|command|commands?)",
+    "stato(\\s*(modalit(?:a|\\u00E0)\\s+comando))?"
+  ]
+}

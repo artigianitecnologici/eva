@@ -15,11 +15,8 @@ import requests
 # ========= Paths & Config =========
 BASE_PATH = os.path.abspath("./")
 CONFIG_PATH = os.path.join(BASE_PATH, "config", "config.json")
-# --- PATCH: command mode paths ---
-COMMANDS_PATH = os.path.join(BASE_PATH, "config", "comandi.json")
 LOG_PATH = os.path.join(BASE_PATH, "log")
 HANDLERS_PATH = os.path.join(BASE_PATH, "handlers")
-STATE_FILE = os.path.join(LOG_PATH, "command_mode.state")
 os.makedirs(LOG_PATH, exist_ok=True)
 os.makedirs(HANDLERS_PATH, exist_ok=True)  # in caso non esista
 
@@ -46,7 +43,7 @@ try:
     with open(CONFIG_PATH, "r", encoding="utf-8") as f:
         CONFIG = json.load(f)
 except Exception as e:
-    log_error(f"Impossibile leggere/parsare il config: {CONFIG_PATH} - {e}")
+    log_error(f"Impossibile leggere/parsare il config: {CONFIG_PATH} — {e}")
     sys.exit(1)
 
 OLLAMA_BASE = CONFIG.get("ollama_host", "http://127.0.0.1:11434")
@@ -96,7 +93,7 @@ def check_ollama_connectivity(raise_on_fail=False):
         return True
     except Exception as e:
         log_error(
-            f"Impossibile connettersi a Ollama su {OLLAMA_BASE} - {e}\n"
+            f"Impossibile connettersi a Ollama su {OLLAMA_BASE} — {e}\n"
             "Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config."
         )
         if raise_on_fail:
@@ -131,11 +128,11 @@ def get_response(messages, model_name: str = DEFAULT_MODEL):
             return {"content": "(errore: formato risposta inatteso da Ollama)"}
         return {"content": content}
     except Exception as e:
-        log_error(f"Chiamata a Ollama fallita (host: {OLLAMA_BASE}, model: {model_name}) - {e}")
-        return {"content": f"(errore: impossibile contattare Ollama su {OLLAMA_BASE} - {e})"}
+        log_error(f"Chiamata a Ollama fallita (host: {OLLAMA_BASE}, model: {model_name}) — {e}")
+        return {"content": f"(errore: impossibile contattare Ollama su {OLLAMA_BASE} — {e})"}
 
 # ========= Handler Loader (plugin locali) =========
-# Ogni handler e un file .py in ./handlers/ con due funzioni:
+# Ogni handler è un file .py in ./handlers/ con due funzioni:
 #   can_handle(text:str, context:dict) -> bool
 #   handle(text:str, context:dict) -> str
 # Vengono caricati dinamicamente all'avvio.
@@ -181,59 +178,6 @@ def try_local_handlers(text: str):
             log_error(f"Errore in handler {getattr(mod, '__name__', mod)}: {e}")
     return None
 
-# ========= PATCH: Modalita comandi =========
-
-def _load_commands():
-    """Legge config/comandi.json. Se assente o invalido, usa fallback minimal."""
-    if not os.path.exists(COMMANDS_PATH):
-        log_error(f"File comandi mancante: {COMMANDS_PATH}")
-        return {
-            "prefix": "#@#",
-            "start": [r"avvia\s+programmazione"],
-            "stop": [r"fine\s+programmazione", r"\bstop\b"],
-            "status": [r"\bstato\s+programmazione\b"]
-        }
-    try:
-        with open(COMMANDS_PATH, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        data.setdefault("prefix", "#@#")
-        data.setdefault("start", [])
-        data.setdefault("stop", [])
-        data.setdefault("status", [])
-        return data
-    except Exception as e:
-        log_error(f"Impossibile leggere/parsare {COMMANDS_PATH} - {e}")
-        return {"prefix": "#@#", "start": [], "stop": [], "status": []}
-
-COMANDI = _load_commands()
-CMD_PREFIX = COMANDI.get("prefix", "#@#")
-
-def _read_command_mode() -> bool:
-    try:
-        if not os.path.exists(STATE_FILE):
-            return False
-        with open(STATE_FILE, "r", encoding="utf-8") as f:
-            return f.read().strip() == "1"
-    except Exception:
-        return False
-
-def _write_command_mode(on: bool) -> None:
-    try:
-        with open(STATE_FILE, "w", encoding="utf-8") as f:
-            f.write("1" if on else "0")
-    except Exception:
-        pass
-
-def _match_any(patterns, text: str) -> bool:
-    t = (text or "").strip()
-    for p in patterns or []:
-        try:
-            if re.search(p, t, flags=re.IGNORECASE):
-                return True
-        except re.error as e:
-            log_error(f"Regex non valida in comandi.json ('{p}'): {e}")
-    return False
-
 # ========= Flask =========
 app = Flask(__name__)
 app.static_folder = 'static'
@@ -250,37 +194,19 @@ def home():
             model_names = [DEFAULT_MODEL]
         print(f"[DEBUG] Modelli disponibili: {model_names}", file=sys.stderr)
     except Exception as e:
-        log_error(f"Errore durante il recupero modelli da {OLLAMA_BASE} - {e}")
+        log_error(f"Errore durante il recupero modelli da {OLLAMA_BASE} — {e}")
         model_names = [DEFAULT_MODEL]
     return render_template("indexollama.html", models=model_names)
 
 def _answer_pipeline(user_text: str, model: str):
-    t = (user_text or "").strip()
-
-    # --- PRIORITA: comandi start/stop/status ---
-    if _match_any(COMANDI.get("start"), t):
-        _write_command_mode(True)
-        return ("Modalita comandi ATTIVATA.\n"
-                f"Da ora restituisco ogni input con prefisso '{CMD_PREFIX}'.\n"
-                "Per uscire usa un comando di stop (vedi config/comandi.json).")
-    if _match_any(COMANDI.get("stop"), t):
-        _write_command_mode(False)
-        return "Modalita comandi DISATTIVATA. Torno a usare il modello."
-    if _match_any(COMANDI.get("status"), t):
-        return "Modalita comandi: ON" if _read_command_mode() else "Modalita comandi: OFF"
-
-    # --- Se la modalita comandi e attiva: niente handler, niente modello ---
-    if _read_command_mode():
-        return f"{CMD_PREFIX}{t if t else '(vuoto)'}"
-
     # 1) prova handler locali
-    local = try_local_handlers(t)
+    local = try_local_handlers(user_text)
     if local is not None:
         return local
 
-    # 2) fallback -> LLM
+    # 2) fallback → LLM
     messages = [{"role": "system", "content": PROMPT_SYSTEM},
-                {"role": "user", "content": t}]
+                {"role": "user", "content": user_text}]
     new_msg = get_response(messages, model)
     msgout = split_string(new_msg.get('content', new_msg))
     msgout = sanitize_response(msgout)

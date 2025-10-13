@@ -37,3 +37,63 @@ Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel con
 Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
 [09/10/2025 08:12:22] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 — HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7520a759aed0>: Failed to establish a new connection: [Errno 111] Connection refused'))
 Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[11/10/2025 06:57:22] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 — HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7cd34fa8cec0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[11/10/2025 06:57:22] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 — HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x743f85f10dd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[11/10/2025 07:03:22] [ERROR] Errore durante il recupero modelli da http://127.0.0.1:11434 — HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x743f85d883b0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[11/10/2025 07:41:29] [ERROR] Errore durante il recupero modelli da http://127.0.0.1:11434 — HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x743f85d887d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[12/10/2025 09:51:11] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 — HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7adc663ad760>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[12/10/2025 09:51:12] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 — HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7d53a9afce60>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[12/10/2025 10:54:06] [ERROR] Errore caricando handler command_mode.py: name 'os' is not defined
+[12/10/2025 10:54:06] [ERROR] Errore caricando handler command_mode.py: name 'os' is not defined
+[12/10/2025 15:50:08] [ERROR] Errore caricando handler command_mode.py: name 'os' is not defined
+[12/10/2025 15:50:09] [ERROR] Errore caricando handler command_mode.py: name 'os' is not defined
+[12/10/2025 15:52:13] [ERROR] Errore caricando handler command_mode.py: name 'os' is not defined
+[12/10/2025 15:52:13] [ERROR] Errore caricando handler command_mode.py: name 'os' is not defined
+[12/10/2025 15:52:44] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 15:57:29] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 15:57:42] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 15:57:42] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 15:57:57] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:05:35] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:06:11] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:06:33] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:12:55] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:20:25] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:25:04] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:25:40] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:25:58] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - model 'gemma2:2b' not found
+[12/10/2025 16:41:55] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 16:42:07] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 16:42:08] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 16:46:18] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 16:46:18] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 16:46:18] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 16:46:18] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 16:47:57] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 16:47:57] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 16:47:58] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 16:47:58] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 17:01:18] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 17:01:18] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 17:01:18] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 17:01:18] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 19:27:47] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 19:27:47] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 19:27:47] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 19:27:47] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 20:02:37] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 20:02:37] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[12/10/2025 20:02:38] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[12/10/2025 20:02:38] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 14:23:10] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 14:23:10] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 14:23:10] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 14:23:10] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 14:39:34] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 14:39:34] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 14:39:34] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 14:39:34] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined

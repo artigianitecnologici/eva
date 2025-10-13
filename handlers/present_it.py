@@ -22,5 +22,5 @@ def can_handle(text: str, context: dict) -> bool:
 def handle(text: str, context: dict) -> str:
     # Risposta predefinita del robot
     # Puoi personalizzare questa parte in base a come vuoi che il robot si presenti
-    return "Ciao, io sono un robot progettato per aiutarti con le tue domande e compiti, Mi chiamo martino e sono un pò biricchino , Come posso esserti utile oggi?"
+    return "Ciao, io sono un robot progettato per aiutarti con le tue domande e compiti, Mi chiamo martino e sono un pò biricchino , Come posso esserti utile oggi?, Se vuoi mi puoi adottare ."
 
