@@ -97,3 +97,9 @@ Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel con
 [13/10/2025 14:39:34] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
 [13/10/2025 14:39:34] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
 [13/10/2025 14:39:34] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 14:57:46] [ERROR] Errore caricando handler present_robotics.py: invalid decimal literal (present_robotics.py, line 9)
+[13/10/2025 14:57:46] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 14:58:46] [ERROR] Errore caricando handler present_robotics.py: invalid decimal literal (present_robotics.py, line 9)
+[13/10/2025 14:58:46] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 14:59:08] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 14:59:08] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
