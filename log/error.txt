@@ -103,3 +103,29 @@ Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel con
 [13/10/2025 14:58:46] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
 [13/10/2025 14:59:08] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
 [13/10/2025 14:59:08] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 16:54:29] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 16:54:29] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 16:54:30] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 16:54:30] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 19:43:53] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 19:43:53] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 19:43:53] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 19:43:53] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[13/10/2025 19:51:46] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[13/10/2025 19:51:46] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[14/10/2025 07:33:10] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[14/10/2025 07:33:10] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[14/10/2025 07:33:10] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[14/10/2025 07:33:10] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[14/10/2025 07:42:57] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[14/10/2025 07:42:57] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[14/10/2025 07:42:58] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[14/10/2025 07:42:58] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[14/10/2025 07:55:02] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[14/10/2025 07:55:02] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[14/10/2025 07:55:03] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[14/10/2025 07:55:03] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[15/10/2025 07:11:29] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[15/10/2025 07:11:29] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[15/10/2025 07:11:29] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[15/10/2025 07:11:29] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined

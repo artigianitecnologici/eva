@@ -260,9 +260,7 @@ def _answer_pipeline(user_text: str, model: str):
     # --- PRIORITA: comandi start/stop/status ---
     if _match_any(COMANDI.get("start"), t):
         _write_command_mode(True)
-        return ("Modalita comandi ATTIVATA.\n"
-                f"Da ora restituisco ogni input con prefisso '{CMD_PREFIX}'.\n"
-                "Per uscire usa un comando di stop (vedi config/comandi.json).")
+        return ("Modalita comandi ATTIVATA")
     if _match_any(COMANDI.get("stop"), t):
         _write_command_mode(False)
         return "Modalita comandi DISATTIVATA. Torno a usare il modello."
