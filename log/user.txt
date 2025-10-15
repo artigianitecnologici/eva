@@ -1271,3 +1271,206 @@ Curiosità:
 
 Se vuoi approfondire la sua vita, ti consiglio di leggere le biografie di Giulio Cesare o consultare risorse online come quelle del Enciclopedia Britannica. 
 
+user: spegni
+bot: Ok, avvio lo spegnimento del sistema.
+user: avvia programmazione
+bot: Modalita comandi ATTIVATA.
+Da ora restituisco ogni input con prefisso '#@#'.
+Per uscire usa un comando di stop (vedi config/comandi.json).
+user: destra
+bot: #@#destra
+user: sinistra
+bot: #@#sinistra
+user: indietro va bene
+bot: #@#indietro va bene
+user: fine programmazione
+bot: Modalita comandi DISATTIVATA. Torno a usare il modello.
+user: io e napoleone
+bot: Ehi! 🇫🇷  È un piacere conoscerti, Napoleone. 😊
+
+C'è qualcosa di cui potrei aiutarti oggi? Forse ti serve informazioni su una battaglia storica, o vuoi discutere la tua ultima impresa di rivoluzione? 💪 
+
+
+
+Ricorda che sono qui per assisterti in qualsiasi cosa tu abbia bisogno. 😉
+
+user: riavvia
+bot: Ok, avvio il riavvio del sistema.
+user: chi e giulio cesare
+bot: Giulio Cesare è stato un politico, generale e dittatore romano che visse durante il I secolo a.C. 
+
+Ecco alcuni punti chiave sulla sua vita:
+
+* Origini: Nato a Roma nel 100 a.C., Giulio Cesare fu membro di una nobile famiglia romana. La sua carriera politica iniziò all'interno del Senato Romano, dove si distinse per la sua intelligenza e abilità di persuasione.
+* Carriera militare:  Eletto console nel 59 a.C., Cesare dimostrò grande abilità nella leadership militare durante diverse campagne che culminarono con la vittoria decisiva della guerra civile contro i rivali.
+* L'Impero Romano:  Dopo la sua vittoria, Cesare si proclamò "Imperatore", iniziando un periodo di grande espansione territoriale e politica del Regno Romano. La sua ambizione lo portò a diventare un dittatore, e il suo impero fu caratterizzato da grandi conquiste militari e dalla creazione di nuove istituzioni.
+* L'eredità:  Giulio Cesare è considerato uno dei più importanti personaggi della storia romana. La sua figura continua a affascinare gli storici e i letterati, ed è spesso paragonato con altri leader politici come Napoleone Bonaparte.
+
+
+In definitiva, Giulio Cesare è un'icona di potere, ambizione e leadership, la cui eredità riflette l'evoluzione del mondo romano e la sua influenza sulla storia dell'Europa.
+
+user: presenta
+bot: Ciao! Sono E.V.A., un Assistente Virtuale Potenziato che parla italiano. 
+
+Sono qui per aiutarti con le tue richieste e domande, sia semplici che complesse.  Posso:
+
+* Fornire informazioni su una vasta gamma di argomenti.
+* Aiutarti a completare attività, come la scrittura creativa o la ricerca di informazioni.
+* Dedicare del tempo alla tua programmazione o ai tuoi progetti.
+
+Non esitare a chiedere qualsiasi cosa! Sono pronto ad assisterti in ogni modo possibile. 🌻  
+
+user: piu presentare
+bot: Ciao! Sono E.V.A., il tuo assistente virtuale potenziato. 
+
+Sono un modello linguistico di grandi dimensioni addestrato da Google, capace di comprendere e generare testo in italiano in modo fluido e naturale.  Ho accesso a una vasta gamma di informazioni e posso aiutarti con diverse attività: 
+
+* Generazione di testo: Posso scrivere storie, articoli, poesie e molto altro!
+* Traduzione: Traduco testi da e per lingua italiana.
+* Riassunto: Posso riassumere testi lunghi in modo conciso.
+* Risposta a domande: Fornisci le tue domande e farò del mio meglio per fornirti risposte informative.
+* Creazione di contenuti: Aiuto nella creazione di contenuti originali, come post social o email marketing.
+
+Tieni presente che sono ancora in fase di sviluppo, ma imparo cose nuove ogni giorno! 
+
+Cosa posso fare per te oggi? 😊  
+
+user: chi sei
+bot: Ciao, io sono un robot progettato per aiutarti con le tue domande e compiti, Mi chiamo martino e sono un pò biricchino , Come posso esserti utile oggi?, Se vuoi mi puoi adottare .
+user: chi sei
+bot: Ciao, io sono un robot progettato per aiutarti con le tue domande e compiti, Mi chiamo martino e sono un pò biricchino , Come posso esserti utile oggi?, Se vuoi mi puoi adottare .
+user: chi e robotics spread
+bot: Robotics Spread è una delle più importanti piattaforme per la diffusione di informazioni e supporto per lo sviluppo della tecnologia robotica. 
+
+Ecco alcune delle cose che Robotics Spread fa:
+
+* Promuove l'interazione e la collaborazione: Fornisce un'ampia piattaforma per artisti, designer e ricercatori con interessi comuni.
+* Offre una vasta gamma di risorse:  Esporta modelli 3D, schemi, tutorial e informazioni su robot. 
+* Favorisce lo scambio di idee e progetti: Contiene forum, gruppi e canali di comunicazione per condividere idee e collaborazioni.
+
+Robotics Spread è un'organizzazione che si impegna a rendere la tecnologia robotica più accessibile e comprensibile a tutti. 
+
+
+Ti consiglio di visitare il loro sito web o contattare direttamente l'organizzazione per maggiori informazioni.  
+
+user: che ore sono
+bot: Sono le 17:02.
+user: abbia programmazione
+bot: Modalita comandi ATTIVATA.
+Da ora restituisco ogni input con prefisso '#@#'.
+Per uscire usa un comando di stop (vedi config/comandi.json).
+user: chi e robotics
+bot: Robotics is the field of science and engineering that deals with the design, construction, operation, and application of robots. 
+
+Here's a breakdown of what robotics encompasses:
+
+* Design:  Creating robots with specific functionalities using mechanical components, sensors, actuators, and software.
+* Construction: Building physical robots from raw materials or using pre-existing components and assembling them according to specifications.
+* Operation: Programming and controlling the behavior of robots through algorithms and software to achieve desired tasks. 
+* Application: Utilizing robots for a variety of purposes such as industrial automation, manufacturing, healthcare, agriculture, entertainment, exploration, assistance in daily life, and research and development.
+
+Key areas within robotics:
+
+* Industrial Robotics: Used extensively in factories to automate repetitive tasks like welding, painting, or assembly line work.
+* Medical Robotics: Aids healthcare professionals in surgery, rehabilitation, and patient care through assistive devices and robotic systems. 
+* Service Robotics:  Enhances efficiency and convenience by performing household chores, assisting with mobility, and providing companionship.
+* Space Robotics: Enables exploration of the cosmos for scientific research and resource acquisition in various celestial bodies.
+
+Robotics is a rapidly evolving field. It is driven by advancements in:
+
+* Computer Science: AI, machine learning, deep learning enable robots to perform increasingly complex tasks autonomously. 
+* Mechanical Engineering: Innovative materials, advanced manufacturing techniques contribute to creating more robust and efficient robots.  
+* Microelectronics: Smaller, faster, and more power-efficient electronic components drive miniaturization of robots.
+
+
+Let me know if you'd like further information about a specific aspect of robotics! 
+
+user: avanti dieci passi
+bot: #@#avanti dieci passi
+user: avanti uno
+bot: #@#avanti uno
+user: avanti
+bot: #@#avanti
+user: sinistra
+bot: #@#sinistra
+user: avanti
+bot: #@#avanti
+user: destra
+bot: #@#destra
+user: avanti
+bot: #@#avanti
+user: avanti come sempre
+bot: #@#avanti come sempre
+user: alza le braccia
+bot: #@#alza le braccia
+user: avanti
+bot: #@#avanti
+user: abbia programmazione
+bot: Modalita comandi ATTIVATA.
+Da ora restituisco ogni input con prefisso '#@#'.
+Per uscire usa un comando di stop (vedi config/comandi.json).
+user: avanti
+bot: #@#avanti
+user: avanti
+bot: #@#avanti
+user: indietro
+bot: #@#indietro
+user: ieri genere
+bot: #@#ieri genere
+user: destra
+bot: #@#destra
+user: destra
+bot: #@#destra
+user: e segue i comandi
+bot: #@#e segue i comandi
+user: esegue il comando indietro
+bot: #@#esegue il comando indietro
+user: avviano l'azione
+bot: #@#avviano l'azione
+user: abbia al bowling
+bot: #@#abbia al bowling
+user: abbia programmazione
+bot: Modalita comandi ATTIVATA.
+Da ora restituisco ogni input con prefisso '#@#'.
+Per uscire usa un comando di stop (vedi config/comandi.json).
+user: indietro
+bot: #@#indietro
+user: destra
+bot: #@#destra
+user: sinistra
+bot: #@#sinistra
+user: fine programmazione
+bot: Modalita comandi DISATTIVATA. Torno a usare il modello.
+user: tesoro
+bot: Ah, un tesoro! 😊 Cosa c'è di specifico che ti interessa del termine "tesoro"? 
+
+Potresti dirmi:
+
+* Un'idea o un concetto? Vuoi esplorare il significato del tesoro, come viene usato in diversi contesti culturali e sociali?  
+* Una domanda specifica? Hai bisogno di informazioni su tesoro come oggetti preziosi, denaro o qualcosa di diverso?
+* Un desiderio di trascorrere una buona giornata?  Vuoi che ti aiuti a trovare un'idea per una tua attività, come fare un regalo creativo o organizzare un evento speciale?
+
+Dimmi cosa hai in mente e con piacere ti accompagnerò nel tuo viaggio! ✨ 
+
+user: resort
+bot: Mi dispiace, ma non ho capito cosa vuoi che faccia. 
+
+Potresti dirmi cosa vorresti sapere su un resort? Ad esempio:
+
+* Hai bisogno di informazioni su qualcuno in particolare? (es. una località specifica)
+* Stai cercando idee per una vacanza?
+* Hai bisogno di aiuto con la ricerca online di un resort?
+
+Per favore, dimmi di cosa hai bisogno!  😊 
+
+user: che ore sono
+bot: Sono le 19:55.
+user: attiva programmazione
+bot: Ho attivato la programmazione!  Dimmi cosa vuoi che faccia: 
+
+* Creare un'estratta da un testo: forniscimi il testo e farò del mio meglio per estrarre le informazioni essenziali.
+* Generare codice: dimmi quali linguaggi di programmazione preferisci, che tipo di programma desideri creare (es. una semplice funzione, un algoritmo, ecc.) ed io proverò a farlo! 
+* Rispondere a domande specifiche: se hai bisogno di saperne di più su un argomento specifico, fammelo sapere e farò del mio meglio per aiutarti!
+
+Non vedo l'ora di collaborare con te!  🔥 
+
