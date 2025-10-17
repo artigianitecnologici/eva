@@ -1474,3 +1474,35 @@ bot: Ho attivato la programmazione!  Dimmi cosa vuoi che faccia:
 
 Non vedo l'ora di collaborare con te!  🔥 
 
+user: ciao
+bot: Ciao! 👋 Come posso aiutarti oggi? 😊 
+
+user: Ciao
+bot: Ciao! 👋  Come posso aiutarti oggi? 😊 
+
+user: Mi puoi aiutare a tradurre le freasi da intaliano ad inglese ?
+bot: Certo! Per favore, forniscimi il testo che vuoi tradurre e ti aiuterò al meglio. 
+
+For example, you can give me: 
+
+ A sentence: "Oggi è un giorno meraviglioso!"
+ A paragraph:  "Mi piace viaggiare e conoscere nuove culture. Ho visitato diversi paesi durante la mia vita e ho imparato molto."
+
+
+The more context and detail you give me, the better I can help! 😊 
+
+user: Mi puoi aiutare a tradurre le freasi da intaliano ad inglese ?
+bot: Certo! Sono qui per aiutarti con la traduzione di frasi dall'italiano all'inglese. 
+
+Per favore, fornisci le frasi che vuoi tradurre e ti aiuterò al meglio! 😉 
+
+
+For example:
+
+ Traduzione: "Ciao, come stai?"
+ English:  "Hi, how are you?" 
+
+
+
+Non vedo l'ora di aiutarti! 🇮🇹🇺🇸 😊 
+

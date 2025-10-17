@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>E.V.A. – Configurazione</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
+    .card { border:1px solid #ddd; border-radius:12px; padding:16px; margin-bottom:24px; }
+    label { display:block; margin-top:8px; }
+    input[type=text], select, textarea { width:100%; padding:8px; border:1px solid #ccc; border-radius:8px; }
+    button { padding:10px 14px; border-radius:8px; border:1px solid #999; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    .flash { padding:10px; border-radius:8px; margin-bottom:12px; }
+    .success { background:#e6ffed; border:1px solid #b7f0c0; }
+    .error { background:#ffeaea; border:1px solid #f0b7b7; }
+    .toolbar { display:flex; gap:8px; align-items:center; }
+    .link { text-decoration:none; color:#0a58ca; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <a class="link" href="/">← Torna alla chat</a>
+  </div>
+  <h1>Configurazione E.V.A.</h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for cat, msg in messages %}
+      <div class="flash {{cat}}">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="card">
+    <h2>config.json</h2>
+    <form method="post">
+      <input type="hidden" name="target" value="config"/>
+      <div class="row">
+        <div>
+          <label for="ollama_host">ollama_host</label>
+          <input type="text" id="ollama_host" name="ollama_host" value="{{ cfg.ollama_host }}"/>
+        </div>
+        <div>
+          <label for="default_model">default_model</label>
+          <select id="default_model" name="default_model">
+            {% for m in models %}
+              <option value="{{m}}" {% if m==cfg.default_model %}selected{% endif %}>{{m}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <label for="prompt_system">prompt_system</label>
+      <textarea id="prompt_system" name="prompt_system" rows="4">{{ cfg.prompt_system }}</textarea>
+
+      <p style="margin-top:12px;">
+        <button type="submit">💾 Salva config.json</button>
+      </p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>comandi.json (opzionale)</h2>
+    <form method="post">
+      <input type="hidden" name="target" value="comandi"/>
+      <label for="comandi_raw">Contenuto JSON</label>
+      <textarea id="comandi_raw" name="comandi_raw" rows="14">{{ comandi_json }}</textarea>
+      <p style="margin-top:12px;">
+        <button type="submit">💾 Salva comandi.json</button>
+      </p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Handler</h2>
+    <p>Ricarica gli handler da <code>/handlers</code> senza riavviare.</p>
+    <button id="reload">🔄 Ricarica handler</button>
+    <pre id="reloadOut"></pre>
+  </div>
+
+  <script>
+    document.querySelector("#reload").onclick = async () => {
+      const res = await fetch("/reload-handlers", { method: "POST" });
+      const data = await res.json();
+      document.querySelector("#reloadOut").textContent = JSON.stringify(data, null, 2);
+    };
+  </script>
+</body>
+</html>

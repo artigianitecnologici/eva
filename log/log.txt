@@ -1474,3 +1474,35 @@ Per favore, dimmi di cosa hai bisogno!  😊
 
 Non vedo l'ora di collaborare con te!  🔥 
 
+16/10/2025 06:43:16
+[QUESTION]: ciao;[OLLAMA]: Ciao! 👋 Come posso aiutarti oggi? 😊 
+
+16/10/2025 06:45:16
+[QUESTION]: Ciao;[OLLAMA]: Ciao! 👋  Come posso aiutarti oggi? 😊 
+
+16/10/2025 06:45:55
+[QUESTION]: Mi puoi aiutare a tradurre le freasi da intaliano ad inglese ?;[OLLAMA]: Certo! Per favore, forniscimi il testo che vuoi tradurre e ti aiuterò al meglio. 
+
+For example, you can give me: 
+
+ A sentence: "Oggi è un giorno meraviglioso!"
+ A paragraph:  "Mi piace viaggiare e conoscere nuove culture. Ho visitato diversi paesi durante la mia vita e ho imparato molto."
+
+
+The more context and detail you give me, the better I can help! 😊 
+
+16/10/2025 06:46:15
+[QUESTION]: Mi puoi aiutare a tradurre le freasi da intaliano ad inglese ?;[OLLAMA]: Certo! Sono qui per aiutarti con la traduzione di frasi dall'italiano all'inglese. 
+
+Per favore, fornisci le frasi che vuoi tradurre e ti aiuterò al meglio! 😉 
+
+
+For example:
+
+ Traduzione: "Ciao, come stai?"
+ English:  "Hi, how are you?" 
+
+
+
+Non vedo l'ora di aiutarti! 🇮🇹🇺🇸 😊 
+
