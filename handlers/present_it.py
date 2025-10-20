@@ -1,6 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Handler 'presentazione' per risposte di presentazione del robot.
+
+Riconosce richieste come:
+- "come ti chiami?"
+- "chi sei?"
+- "come ti presenti?"
+- "parlami di te"
+- "presentati"
+- "ti vuoi presentare"
+- "puoi presentarti"
+- "fai una presentazione"
+- "presentazione"
+"""
+
 import re
 
-# Pattern italiani comuni per chiedere al robot di presentarsi
+# Compiliamo i pattern una volta sola (case-insensitive)
 _PATTERNS = [
     r"\bcome\s+ti\s+chiami\??\b",
     r"\bchi\s+sei\??\b",
@@ -8,19 +24,39 @@ _PATTERNS = [
     r"\bchi\s+sei\s+tu\??\b",
     r"\bcome\s+ti\s+presenti\??\b",
     r"\bparlami\s+di\s+te\??\b",
+
+    # Varianti "presentati"
+    r"\bpresentati\b",
+    r"\bpresenta\b",
+    r"\bpresentadi\b",
+    r"\bpresentati\s+pure\b",
+    r"\bpresentati\s+per\s+favore\b",
+
+    # Varianti "presentare/presentarti"
+    r"\bti\s+vuoi\s+presentare\??\b",
+    r"\bpuoi\s+presentarti\??\b",
+    r"\bpotresti\s+presentarti\??\b",
+
+    # Altre forme comuni
+    r"\bfai\s+una\s+presentazione\??\b",
+    r"\bpresentazione\??\b",
 ]
+
+_COMPILED = [re.compile(p, flags=re.IGNORECASE) for p in _PATTERNS]
 
 def can_handle(text: str, context: dict) -> bool:
     if not text:
         return False
-    t = text.lower().strip()
-    for pat in _PATTERNS:
-        if re.search(pat, t):
+    t = text.strip()
+    for rx in _COMPILED:
+        if rx.search(t):
             return True
     return False
 
 def handle(text: str, context: dict) -> str:
-    # Risposta predefinita del robot
-    # Puoi personalizzare questa parte in base a come vuoi che il robot si presenti
-    return "Ciao, io sono un robot progettato per aiutarti con le tue domande e compiti, Mi chiamo martino e sono un pò biricchino , Come posso esserti utile oggi?, Se vuoi mi puoi adottare ."
-
+    # Risposta di presentazione (personalizzabile)
+    return (
+        "Ciao! Sono Martino, un robot pensato per aiutarti con domande e compiti del quotidiano. "
+        "Sono un po' birichino ma molto volenteroso! Come posso esserti utile adesso? "
+        "Se vuoi, mi puoi anche adottare. Ciao per farmi le domande devi dire la parola marrtino e poi farmi la domanda"
+    )

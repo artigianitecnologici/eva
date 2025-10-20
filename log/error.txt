@@ -141,3 +141,102 @@ Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel con
 [16/10/2025 06:40:56] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
 [16/10/2025 06:40:56] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
 [16/10/2025 06:40:56] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 07:54:57] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 07:54:57] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 07:55:00] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7007eaf176b0>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[17/10/2025 07:57:03] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 07:57:03] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 07:57:06] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x79f6c674b620>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[17/10/2025 07:57:07] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 07:57:07] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 07:57:07] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bc4c0187530>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[17/10/2025 07:58:14] [ERROR] Errore durante il recupero modelli da http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bc4c0243860>: Failed to establish a new connection: [Errno 113] No route to host'))
+[17/10/2025 07:58:46] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 07:58:46] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 07:58:49] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fd96deeb050>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[17/10/2025 07:59:45] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 07:59:45] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 08:00:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 08:00:20] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 08:00:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 08:00:20] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 08:03:18] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 08:03:18] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 08:03:18] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 08:03:18] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 18:59:44] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 18:59:44] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[17/10/2025 18:59:44] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[17/10/2025 18:59:44] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:29:57] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:29:57] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:29:57] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:29:57] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:36:50] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:36:50] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:38:24] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:38:24] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:38:24] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:38:24] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:44:25] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:44:25] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:44:26] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:44:26] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:45:54] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:45:54] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:45:54] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:45:54] [ERROR] Errore caricando handler command_mode.py: name 'COMMANDS_PATH' is not defined
+[18/10/2025 10:53:26] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:53:26] [ERROR] Errore caricando handler command_mode.py: name 'CONFIG_DIR' is not defined
+[18/10/2025 10:53:26] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:53:26] [ERROR] Errore caricando handler command_mode.py: name 'CONFIG_DIR' is not defined
+[18/10/2025 10:54:58] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:54:58] [ERROR] Errore caricando handler command_mode.py: unterminated string literal (detected at line 5) (command_mode.py, line 5)
+[18/10/2025 10:54:59] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:54:59] [ERROR] Errore caricando handler command_mode.py: unterminated string literal (detected at line 5) (command_mode.py, line 5)
+[18/10/2025 10:55:48] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:55:48] [ERROR] Errore caricando handler command_mode.py: name 'log_error' is not defined
+[18/10/2025 10:55:49] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:55:49] [ERROR] Errore caricando handler command_mode.py: name 'log_error' is not defined
+[18/10/2025 10:58:37] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:58:37] [ERROR] Handler command_mode.py ignorato: mancano funzioni can_handle/handle
+[18/10/2025 10:58:37] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 10:58:37] [ERROR] Handler command_mode.py ignorato: mancano funzioni can_handle/handle
+[18/10/2025 11:13:05] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 11:13:06] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 13:47:50] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 13:47:50] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 13:54:22] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 13:54:22] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 13:58:43] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[18/10/2025 13:58:43] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 10:06:38] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 10:06:38] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 10:56:18] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 10:56:19] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 11:43:16] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 11:43:56] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 11:45:06] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 11:45:06] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 12:42:00] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 12:58:17] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 12:59:47] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 13:21:04] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 13:22:12] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 13:47:09] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 13:47:31] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 13:56:25] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 13:57:30] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 14:00:18] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 14:00:48] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 14:17:19] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[19/10/2025 14:53:45] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[19/10/2025 15:36:29] [ERROR] Chiamata a Ollama fallita (host: http://127.0.0.1:11434, model: gemma2:2b) - messages must contain content
+[20/10/2025 06:01:33] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 06:01:33] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 06:10:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 06:10:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)

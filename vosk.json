@@ -1,0 +1,17 @@
+{
+  "lang": "it",
+  "samplerate": 16000,
+  "audio_device": "auto",
+  "show_partial": false,
+  "models_dir": "./models",
+  "models": {
+    "it": {
+      "name": "vosk-model-it-0.22",
+      "url": "https://alphacephei.com/vosk/models/vosk-model-it-0.22.zip"
+    },
+    "en": {
+      "name": "vosk-model-small-en-us-0.15",
+      "url": "https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"
+    }
+  }
+}
