@@ -1,5 +1,5 @@
 {
-  "ollama_host": "http://192.168.1.9:11434",
+  "ollama_host": "http://192.168.1.7:11434",
   "default_model": "llama3:latest",
   "prompt_system": "Sei E.V.A. Enhanced Virtual Assistant, rispondi in italiano.",
   "default_profile": "SMARRtino",

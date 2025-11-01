@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>E.V.A. – Profili</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{ --bg:#0f172a; --card:#111827; --panel:#0b1220; --border:#1f2937;
+           --text:#e5e7eb; --heading:#f8fafc; --muted:#cbd5e1; --link:#bfe3ff; }
+    body { background:var(--bg); color:var(--text); }
+    .navbar{ background:var(--card); border-bottom:1px solid var(--border); }
+    .card { background:var(--card); border:1px solid var(--border); }
+    h1,h2,h3,h4,h5,h6,.card-title,.form-label{ color:var(--heading)!important; }
+    a,a:visited{ color:var(--link); }
+    .table-dark{ --bs-table-bg: var(--panel); --bs-table-border-color: var(--border); }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-dark">
+  <div class="container">
+    <span class="navbar-brand">E.V.A. – Profili</span>
+    <div class="d-flex gap-2">
+      <a class="btn btn-sm btn-outline-light" href="/">Chat</a>
+      <a class="btn btn-sm btn-outline-light" href="/config">Config</a>
+      <a class="btn btn-sm btn-outline-light" href="/comandi">Comandi</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="mb-3">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'success' if category=='success' else ('warning' if category=='warning' else 'danger') }} mb-2" role="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 m-0">Profili (default: <code>{{ default_profile }}</code>)</h1>
+    <a class="btn btn-success" href="/profiles/new">+ Nuovo profilo</a>
+  </div>
+
+  <div class="card p-3">
+    {% if profiles %}
+      <div class="table-responsive">
+        <table class="table table-sm table-dark align-middle">
+          <thead><tr><th>Nome</th><th>Label</th><th>Modello</th><th></th></tr></thead>
+          <tbody>
+          {% for name, p in profiles.items() %}
+            <tr>
+              <td><code>{{ name }}</code>{% if name == default_profile %} <span class="badge bg-success ms-2">predefinito</span>{% endif %}</td>
+              <td>{{ p.label or '' }}</td>
+              <td>{{ p.model or '' }}</td>
+              <td class="text-end">
+                <a class="btn btn-sm btn-outline-info" href="/profiles/{{ name }}/edit">Modifica</a>
+                <form method="POST" action="/profiles/{{ name }}/delete" style="display:inline"
+                      onsubmit="return confirm('Eliminare profilo {{ name }}?')">
+                  <button class="btn btn-sm btn-outline-danger">Elimina</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="mb-0">Nessun profilo definito. <a href="/profiles/new">Crea il primo profilo</a>.</p>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>

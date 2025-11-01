@@ -16,3 +16,12 @@ sounddevice
 numpy
 requests
 beautifulsoup4
+#
+langchain
+langchain-community
+langchain-ollama
+langchain-huggingface
+pypdf
+sentence-transformers
+faiss-cpu
+fpdf

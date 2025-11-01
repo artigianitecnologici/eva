@@ -240,3 +240,76 @@ Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel con
 [20/10/2025 06:01:33] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
 [20/10/2025 06:10:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
 [20/10/2025 06:10:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:31:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:31:20] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 - HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x781277af08c0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[20/10/2025 15:31:20] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:31:20] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 - HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x78d70edb99d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[20/10/2025 15:33:32] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:33:32] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 - HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x74d97ee28590>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[20/10/2025 15:33:32] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:33:32] [ERROR] Impossibile connettersi a Ollama su http://127.0.0.1:11434 - HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x71a2542b4920>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 su 127.0.0.1 e valore 'ollama_host' nel config.
+[20/10/2025 15:33:34] [ERROR] Errore durante il recupero modelli da http://127.0.0.1:11434 - HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x71a254148080>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:33:39] [ERROR] /config fetch models error: HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x71a2541484a0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:35:07] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:35:07] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:41:42] [ERROR] /config fetch models error: HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7927ab4f6d20>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:42:15] [ERROR] /config fetch models error: HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7927ab4f58b0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:42:41] [ERROR] /config fetch models error: HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7927ab5043e0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:44:08] [ERROR] /config fetch models error: HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7927ab4f4e60>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:45:02] [ERROR] /config fetch models error: HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7927ab4b2570>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:45:17] [ERROR] Errore durante il recupero modelli da http://127.0.0.1:11434 - HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7927ab504710>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[20/10/2025 15:45:21] [ERROR] 
+[errore stream: [Errno 111] Connection refused]
+[20/10/2025 15:45:30] [ERROR] 
+[errore stream: [Errno 111] Connection refused]
+[20/10/2025 15:45:37] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:45:37] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[20/10/2025 15:45:47] [ERROR] 
+[errore stream: model 'llama3:latest' not found]
+[22/10/2025 05:22:41] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[22/10/2025 05:22:41] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[22/10/2025 05:23:23] [ERROR] 
+[errore stream: model 'llama3:latest' not found]
+[22/10/2025 05:46:41] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[22/10/2025 05:46:42] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[22/10/2025 05:48:33] [ERROR] 
+[errore stream: model 'llama3:latest' not found]
+[22/10/2025 05:49:46] [ERROR] 
+[errore stream: model 'llama3:latest' not found]
+[23/10/2025 10:28:33] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[23/10/2025 10:28:33] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.7:11434 - HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x79ef8afc54c0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[23/10/2025 10:28:33] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[23/10/2025 10:28:33] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.7:11434 - HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x75f256d88d40>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[23/10/2025 10:29:35] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[23/10/2025 10:29:35] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[24/10/2025 15:00:32] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[24/10/2025 15:00:37] [ERROR] Impossibile connettersi a Ollama su http://192.168.5.86:11434 - HTTPConnectionPool(host='192.168.5.86', port=11434): Max retries exceeded with url: /api/tags (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x765bbccb9550>, 'Connection to 192.168.5.86 timed out. (connect timeout=5)'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[24/10/2025 15:00:37] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[24/10/2025 15:00:42] [ERROR] Impossibile connettersi a Ollama su http://192.168.5.86:11434 - HTTPConnectionPool(host='192.168.5.86', port=11434): Max retries exceeded with url: /api/tags (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7a7a82fc5850>, 'Connection to 192.168.5.86 timed out. (connect timeout=5)'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[24/10/2025 15:01:51] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[24/10/2025 15:01:51] [ERROR] Errore caricando handler present_robotics.py: (unicode error) 'utf-8' codec can't decode byte 0xe8 in position 9: invalid continuation byte (present_robotics.py, line 5)
+[25/10/2025 08:56:21] [ERROR] 
+[errore stream: model 'llama3:latest' not found]
+[25/10/2025 09:20:11] [ERROR] 
+[errore stream: model 'llama3:latest' not found]
+[01/11/2025 14:55:59] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.7:11434 - HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bad8b684a40>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[01/11/2025 14:56:00] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.7:11434 - HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x72e01ebc1b20>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[01/11/2025 14:56:36] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.7:11434 - HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x70943b3a5af0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[01/11/2025 14:56:38] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.7:11434 - HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bbe93207ad0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[01/11/2025 14:56:47] [ERROR] Errore recupero modelli da http://192.168.1.7:11434 - HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bbe92f392b0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[01/11/2025 14:56:53] [ERROR] /config fetch models error: HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bbe92f39f40>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[01/11/2025 14:56:53] [ERROR] /config fetch models error: HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bbe92f3b050>: Failed to establish a new connection: [Errno 111] Connection refused'))
+[01/11/2025 14:57:52] [ERROR] 
+[errore stream: model 'llama3:latest' not found]

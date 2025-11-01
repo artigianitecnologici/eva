@@ -1,5 +1,0 @@
-{
-  "ollama_host": "http://127.0.0.1:11434",
-  "default_model": "gemma2:2b",
-  "prompt_system": "Sei E.V.A. Enhanced Virtual Assistant  Assistente Virtuale Potenziato, rispondi in italiano"
-}
