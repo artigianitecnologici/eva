@@ -313,3 +313,19 @@ Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
 [01/11/2025 14:56:53] [ERROR] /config fetch models error: HTTPConnectionPool(host='192.168.1.7', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bbe92f3b050>: Failed to establish a new connection: [Errno 111] Connection refused'))
 [01/11/2025 14:57:52] [ERROR] 
 [errore stream: model 'llama3:latest' not found]
+[01/11/2025 19:53:36] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f587398afc0>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[01/11/2025 19:53:39] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7549ceb52c90>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[02/11/2025 06:57:48] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8745ff2b10>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[02/11/2025 06:57:51] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7e0910e09b80>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[02/11/2025 07:15:49] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7bfbec827b30>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[02/11/2025 07:15:53] [ERROR] Impossibile connettersi a Ollama su http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x76aef73efb30>: Failed to establish a new connection: [Errno 113] No route to host'))
+Verifica 'ollama serve', porta 11434 e valore 'ollama_host' nel config.
+[02/11/2025 07:16:03] [ERROR] /config fetch models error: HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x76aef72c36e0>: Failed to establish a new connection: [Errno 113] No route to host'))
+[02/11/2025 07:16:06] [ERROR] Errore recupero modelli da http://192.168.1.9:11434 - HTTPConnectionPool(host='192.168.1.9', port=11434): Max retries exceeded with url: /api/tags (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x76aef72c2780>, 'Connection to 192.168.1.9 timed out. (connect timeout=5)'))
+[02/11/2025 07:16:36] [ERROR] 
+[errore stream: model 'llama3:latest' not found (status code: 404)]

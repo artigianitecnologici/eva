@@ -1,71 +1,70 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Gestione PDF{% endblock %}
 {% block content %}
 
-<h1 class="mb-4">Ollama PDF RAG</h1>
+<h2 class="mb-4">Gestione PDF</h2>
 
-<!-- Form per porre la domanda -->
-<form id="askForm" class="mb-3">
-  <input type="text" name="question" class="form-control mb-2" placeholder="Fai una domanda..." required>
+{% if log_messages %}
+<div class="alert alert-secondary">
+  <h5 class="mb-2">Log operazioni:</h5>
+  <ul class="mb-0">
+    {% for msg in log_messages %}
+      <li><code>{{ msg }}</code></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
 
-  <select name="model" class="form-select mb-2">
-    {% if models %}
-      {% for model in models %}
-        <option value="{{ model }}">{{ model }}</option>
-      {% endfor %}
-    {% else %}
-      <option disabled selected>Nessun modello disponibile</option>
-    {% endif %}
-  </select>
-
-  <button type="submit" class="btn btn-primary">Invia</button>
+<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="mb-4">
+  <input type="file" name="pdfs" multiple accept="application/pdf" class="form-control mb-2" required>
+  <button type="submit" class="btn btn-success">Carica PDF</button>
 </form>
 
-<!-- Spinner di caricamento -->
-<div id="spinner" class="text-center my-3" style="display: none;">
-  <div class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Caricamento...</span>
-  </div>
-</div>
+<h4>PDF caricati</h4>
+<ul class="list-group mb-4">
+  {% for pdf in pdf_files %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <span>{{ pdf }}</span>
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary btn-sm" onclick="visualizzaPdf('{{ pdf }}')">Visualizza</button>
+      
+      <form action="{{ url_for('delete_pdf_route', filename=pdf) }}" method="post" class="m-0">
 
-<!-- Risposta del modello -->
-<div id="answer-box" class="alert alert-info d-none"></div>
+        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+      </form>
+    </div>
+  </li>
+  {% else %}
+  <li class="list-group-item text-muted">Nessun PDF caricato</li>
+  {% endfor %}
+</ul>
 
-<!-- Script per inviare richiesta e visualizzare risposta + tempo -->
+<canvas id="pdfCanvas" class="border w-100" style="max-width:800px;"></canvas>
+
 <script>
-  document.getElementById("askForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+  const pdfCanvas = document.getElementById('pdfCanvas');
+  const pdfCtx = pdfCanvas.getContext('2d');
 
-    // Mostra spinner
-    document.getElementById("spinner").style.display = "block";
-
-    fetch("/ask", {
-      method: "POST",
-      body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-      const box = document.getElementById("answer-box");
-      box.classList.remove("d-none");
-
-      // Nascondi spinner
-      document.getElementById("spinner").style.display = "none";
-
-      if (data.answer) {
-        box.innerHTML = `
-          <strong>Risposta:</strong> ${data.answer}<br>
-          <small class="text-muted">Tempo di risposta: ${data.time} secondi</small>
-        `;
-      } else {
-        box.innerHTML = "<strong>Errore:</strong> " + (data.error || "Errore sconosciuto");
-      }
-    })
-    .catch(err => {
-      document.getElementById("spinner").style.display = "none";
-      document.getElementById("answer-box").innerHTML = "<strong>Errore di rete:</strong> " + err;
-    });
-  });
+  function visualizzaPdf(filename) {
+    const url = `/pdfs/${filename}`;
+    fetch(url)
+      .then(response => response.arrayBuffer())
+      .then(data => {
+        const typedarray = new Uint8Array(data);
+        pdfjsLib.getDocument(typedarray).promise.then(pdf => {
+          pdf.getPage(1).then(page => {
+            const viewport = page.getViewport({ scale: 1.5 });
+            pdfCanvas.height = viewport.height;
+            pdfCanvas.width = viewport.width;
+            const renderContext = {
+              canvasContext: pdfCtx,
+              viewport: viewport
+            };
+            page.render(renderContext);
+          });
+        });
+      });
+  }
 </script>
 
 {% endblock %}
