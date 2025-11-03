@@ -106,13 +106,13 @@ def _safe_write_config(new_cfg: dict) -> bool:
 # ======= Config iniziale =======
 CONFIG = _read_json(CONFIG_PATH, default={
     "ollama_host": "http://127.0.0.1:11434",
-    "default_model": "llama3:latest",
+    "default_model": "gemma2:2b",
     "prompt_system": "Sei E.V.A. Enhanced Virtual Assistant, rispondi in italiano.",
     "default_profile": "default",
     "profiles": {
         "default": {
             "label": "Default",
-            "model": "llama3:latest",
+            "model": "gemma2:2b",
             "system": "Sei E.V.A. Enhanced Virtual Assistant, rispondi in italiano.",
             "options": {
                 "temperature": 0.2,
@@ -132,7 +132,7 @@ if CONFIG is None:
 def _normalize_config(cfg: dict) -> dict:
     cfg = dict(cfg or {})
     cfg.setdefault("ollama_host", "http://127.0.0.1:11434")
-    cfg.setdefault("default_model", "llama3:latest")
+    cfg.setdefault("default_model", "gemma2:2b")
     cfg.setdefault("prompt_system", "Sei E.V.A. Enhanced Virtual Assistant, rispondi in italiano.")
     cfg.setdefault("default_profile", "default")
     cfg.setdefault("profiles", {})
@@ -146,7 +146,7 @@ CONFIG = _normalize_config(CONFIG)
 
 # Riferimenti runtime
 OLLAMA_BASE = CONFIG.get("ollama_host", "http://127.0.0.1:11434")
-DEFAULT_MODEL = CONFIG.get("default_model", "llama3:latest")
+DEFAULT_MODEL = CONFIG.get("default_model", "gemma2:2b")
 PROMPT_SYSTEM = CONFIG.get("prompt_system", "Sei E.V.A. Enhanced Virtual Assistant, rispondi in italiano.")
 DEFAULT_PROFILE = CONFIG.get("default_profile", "default")
 PROFILES = CONFIG.get("profiles", {})
@@ -205,7 +205,7 @@ def _get_profile(name: str):
         return name, prof
     fallback = {
         "label": "Compat",
-        "model": CONFIG.get("default_model", "llama3:latest"),
+        "model": CONFIG.get("default_model", "gemma2:2b"),
         "system": CONFIG.get("prompt_system", PROMPT_SYSTEM),
         "options": {}
     }

@@ -3629,3 +3629,88 @@ robot.left_arm(90) # Alzo il braccio sinistro
 Nota che ho specificato di utilizzare `robot.left_arm` per alzare il braccio sinistro. Se desideri alzare il braccio destro, dovresti utilizzare `robot.right_arm` invece.
 
 In ogni caso, questo comando farà in modo che uno dei miei due bracci si sollevi di 90 gradi rispetto alla mia base.
+02/11/2025 10:39:47
+[QUESTION]: fa;[OLLAMA]: (errore: impossibile contattare Ollama su http://10.3.1.1:11434 - Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download)
+02/11/2025 10:41:39
+[QUESTION]: ciao;[OLLAMA]: (errore: impossibile contattare Ollama su http://127.0.0.1:11434 - model 'llama3:latest' not found (status code: 404))
+02/11/2025 10:43:10
+[QUESTION]: ciao;[OLLAMA]: (errore: impossibile contattare Ollama su http://127.0.0.1:11434 - model 'llama3:latest' not found (status code: 404))
+02/11/2025 10:46:12
+[QUESTION]: ciao;[OLLAMA]: (errore: impossibile contattare Ollama su http://127.0.0.1:11434 - model 'llama3:latest' not found (status code: 404))
+02/11/2025 10:48:55
+[QUESTION]: ciano;[OLLAMA]: (errore: impossibile contattare Ollama su http://127.0.0.1:11434 - model 'llama3:latest' not found (status code: 404))
+02/11/2025 10:55:56
+[QUESTION]: ciao;[OLLAMA]: (errore: impossibile contattare Ollama su http://127.0.0.1:11434 - model 'llama3:latest' not found (status code: 404))
+02/11/2025 11:15:26
+[QUESTION]: ciao;[OLLAMA]: (errore: impossibile contattare Ollama su http://127.0.0.1:11434 - model 'llama3:latest' not found (status code: 404))
+02/11/2025 11:18:59
+[QUESTION]: ciao;[OLLAMA]: Ciao! 😃  Che bello vederti! Cosa stai cercando oggi?  ✨  Della tua creatività, di un'idea geniale o solo della compagnia di una buona conversazione? Dilo pure! 😉 
+
+02/11/2025 11:20:19
+[QUESTION]: alza il braccio;[OLLAMA]: <CODE>robot.left_arm(180) </CODE> 
+<CODE>robot.right_arm(180) </CODE> 
+
+03/11/2025 15:18:34
+[QUESTION]: ciao;[OLLAMA]: <CODE>robot.forward(1) </CODE> 
+<CODE>
+</CODE>  Ciao! How can I help you today? 
+
+03/11/2025 17:52:07
+[QUESTION]: ciao;[OLLAMA]: <CODE> robot.forward(1) </CODE> 
+<CODE> </CODE>  
+
+Ciao! How can I help you today? 😊 
+
+03/11/2025 17:53:02
+[QUESTION]: che sono;[OLLAMA]: Un po' di magia italiana ✨, ecco! Sono E.V.A., qui per darti un tocco di vivacità alle tue idee e renderle accessibili anche al più curioso dei tuoi gusti. 🎤  So tutto su frasi brevi, spunti originali e la capacità di trasformarti in qualcosa di davvero speciale 💫. Cosa hai in mente? 😄  
+
+03/11/2025 17:53:30
+[QUESTION]: che ore sono;[OLLAMA]: Sono le 17:53.
+03/11/2025 17:53:44
+[QUESTION]: presenta di;[OLLAMA]: Ciao! Sono Martino, un robot pensato per aiutarti con domande e compiti del quotidiano. Sono un po' birichino ma molto volenteroso! Come posso esserti utile adesso? Se vuoi, mi puoi anche adottare. Ciao per farmi le domande devi dire la parola marrtino e poi farmi la domanda
+03/11/2025 17:54:40
+[QUESTION]: qual e la distanza tra la luna e la terra;[OLLAMA]: Ehi! 👋  Intrigante domanda! La distanza tra la Terra e la Luna non è una semplice questione di chilometri, ma cambia tutto il tempo 😉. 
+
+In media: la distanza tra la Luna e la Terra oscilla tra 215.000 e 405.000 chilometri.  🤯  Un viaggio lungo come un'avventura spaziale! 🚀
+
+Hai altre domande starti? ✨
+
+03/11/2025 17:55:12
+[QUESTION]: io mi chiamo fabio e tu come ti chiami;[OLLAMA]: Ciao! Sono Martino, un robot pensato per aiutarti con domande e compiti del quotidiano. Sono un po' birichino ma molto volenteroso! Come posso esserti utile adesso? Se vuoi, mi puoi anche adottare. Ciao per farmi le domande devi dire la parola marrtino e poi farmi la domanda
+03/11/2025 17:56:50
+[QUESTION]: mi racconti una barzelletta;[OLLAMA]: Un giorno un elefante entra in un negozio di telefonia! 🐘📱
+
+Il venditore, confuso, gli chiede: "Cosa posso fare per te?"
+
+L'elefante risponde:  "Voglio comprare il cellulare più potente del mondo!" 💪 🤯
+
+Il venditore lo guarda incredulità e gli dice:"Ma... L'Elefante ha solo un unico dito! 😂"
+
+L'elefante, però, con una espressione di "Beh, se non mi piace..." decide di usare le sue ossa per premere il pulsante per la chiamata.  🐘 📞  
+
+
+C'è chi dice che l'elefante sia un'arma a doppio taglio... Cosa ne pensi? 😉   
+
+
+
+Fammi sapere cosa ne pensi! 😄
+
+03/11/2025 17:58:24
+[QUESTION]: conosci le leggi dei marsi;[OLLAMA]: Ciao! 🎉 È chiaro che ti affascinano i misteri del mondo!  Il 'Marsi' è un tema davvero intrigante... 😉 
+
+Che tipo di leggi dei Marsi ti interessa? Stai cercando di capire come gli universi si muovano, o forse stai cercando di decodificare enigmi filosofici? 🤔 Dimmi qualcosa di più e posso aiutarti a svelare i segreti del mondo! ✨
+
+03/11/2025 17:59:08
+[QUESTION]: resort;[OLLAMA]: ✨   Resort: immagino il profumo di mare, il sole che riscalda i tuoi piedi, il rumore delle onde che sussurrano storie del passato! ✨
+
+C'è qualcosa in particolare che ti appassiona di un resort? Un tipo di vacanza? O forse vuoi creare una location unica con me? 💪  Fammi sapere per aiutarti a trovare la tua avventura perfetta! 🏖️
+
+
+
+
+03/11/2025 18:00:11
+[QUESTION]: ne sono;[OLLAMA]: Ciao! Sono E.V.A., a tua disposizione per creare qualcosa di davvero magico! ✨  Cosa hai in mente? 😄 
+
+03/11/2025 19:34:38
+[QUESTION]: ciao;[OLLAMA]: Ciao! 👋 😄 È bellissimo rivederti! Cosa di speciale oggi? 🤔  Hai un'idea per una sfida creativa? 🎨  Parliamo di un progetto, scriviamo un jingle, inventiamo una nuova ricetta... tutto è possibile! ✨ 
+

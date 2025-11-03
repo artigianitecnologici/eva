@@ -1,6 +1,6 @@
 {
-  "ollama_host": "http://192.168.1.8:11434",
-  "default_model": "llama3:latest",
+  "ollama_host": "http://127.0.0.1:11434",
+  "default_model": "gemma2:2b",
   "prompt_system": "Sei E.V.A. Enhanced Virtual Assistant, rispondi in italiano.",
   "default_profile": "SMARRtino",
   "profiles": {
@@ -19,7 +19,7 @@
     },
     "creative": {
       "label": "Creativo",
-      "model": "llama3.1:8b",
+      "model": "gemma2:2b",
       "system": "Sei E.V.A., assistente creativo e amichevole. Rispondi in italiano con un tono brillante e propositivo.",
       "options": {
         "temperature": 0.9,
@@ -31,7 +31,7 @@
     },
     "precise": {
       "label": "Preciso",
-      "model": "llama3:latest",
+      "model": "gemma2:2b",
       "system": "Sei E.V.A., assistente tecnico. Rispondi in modo conciso, con elenchi puntati quando utile. Italiano.",
       "options": {
         "temperature": 0.1,
