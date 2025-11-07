@@ -592,73 +592,11 @@ def _options_from_form(form, allow_raw_merge=True):
                 flash(f"options_raw non valido: {e}", "error")
     return opts
 
-def reload_config():
-    global CONFIG, OLLAMA_BASE, DEFAULT_MODEL, PROMPT_SYSTEM, DEFAULT_PROFILE, PROFILES, ollama_client
-    CONFIG = _read_json(CONFIG_PATH, default={})
-    if CONFIG is None:
-        log_error(f"File di configurazione mancante o invalido: {CONFIG_PATH}")
-        sys.exit(1)
-    CONFIG = _normalize_config(CONFIG)
-
-    OLLAMA_BASE = CONFIG.get("ollama_host", "http://127.0.0.1:11434")
-    DEFAULT_MODEL = CONFIG.get("default_model", "gemma2:2b")
-    PROMPT_SYSTEM = CONFIG.get("prompt_system", "Sei E.V.A. Enhanced Virtual Assistant, rispondi in italiano.")
-    DEFAULT_PROFILE = CONFIG.get("default_profile", "default")
-    PROFILES = CONFIG.get("profiles", {})
-    ollama_client = Client(host=OLLAMA_BASE)
-
-# # ---------- CONFIG GENERALE ----------
-# @app.route("/config", methods=["GET", "POST"])
-# def config_page():
-#     global CONFIG, OLLAMA_BASE, DEFAULT_MODEL, PROMPT_SYSTEM, DEFAULT_PROFILE, PROFILES, ollama_client
-#     if request.method == "POST":
-#         new_conf = dict(CONFIG)
-#         new_conf["ollama_host"]   = (request.form.get("ollama_host") or OLLAMA_BASE).strip()
-#         new_conf["default_model"] = (request.form.get("default_model") or DEFAULT_MODEL).strip()
-#         new_conf["prompt_system"] = request.form.get("prompt_system", PROMPT_SYSTEM)
-#         dp = (request.form.get("default_profile") or DEFAULT_PROFILE).strip()
-#         if dp and dp in CONFIG.get("profiles", {}):
-#             new_conf["default_profile"] = dp
-#         else:
-#             flash("Profilo predefinito non valido: lascio quello precedente.", "warning")
-
-#         new_conf = _normalize_config(new_conf)
-#         if _safe_write_config(new_conf):
-#             CONFIG = new_conf
-#             OLLAMA_BASE = CONFIG.get("ollama_host", OLLAMA_BASE)
-#             DEFAULT_MODEL = CONFIG.get("default_model", DEFAULT_MODEL)
-#             PROMPT_SYSTEM = CONFIG.get("prompt_system", PROMPT_SYSTEM)
-#             DEFAULT_PROFILE = CONFIG.get("default_profile", DEFAULT_PROFILE)
-#             PROFILES = CONFIG.get("profiles", {})
-#             ollama_client = Client(host=OLLAMA_BASE)
-#             flash("config.json aggiornato correttamente.", "success")
-#         else:
-#             flash("Errore nel salvataggio di config.json (backup preservato).", "error")
-#         return redirect(url_for("config_page"))
-
-#     models = []
-#     try:
-#         url = f"{OLLAMA_BASE.rstrip('/')}/api/tags"
-#         r = requests.get(url, timeout=5)
-#         r.raise_for_status()
-#         model_list = r.json().get("models", [])
-#         models = [(m.get("name") or m.get("model")) for m in model_list if (m.get("name") or m.get("model"))]
-#     except Exception as e:
-#         log_error(f"/config fetch models error: {e}")
-#     if not models:
-#         models = [DEFAULT_MODEL]
-
-#     return render_template("config_general.html",
-#                            cfg=CONFIG,
-#                            models=models,
-#                            profiles=CONFIG.get("profiles", {}),
-#                            default_profile=CONFIG.get("default_profile", "default"))
-
+# ---------- CONFIG GENERALE ----------
 @app.route("/config", methods=["GET", "POST"])
 def config_page():
     global CONFIG, OLLAMA_BASE, DEFAULT_MODEL, PROMPT_SYSTEM, DEFAULT_PROFILE, PROFILES, ollama_client
     if request.method == "POST":
-        # Aggiorna i valori di configurazione dalla form
         new_conf = dict(CONFIG)
         new_conf["ollama_host"]   = (request.form.get("ollama_host") or OLLAMA_BASE).strip()
         new_conf["default_model"] = (request.form.get("default_model") or DEFAULT_MODEL).strip()
@@ -669,19 +607,20 @@ def config_page():
         else:
             flash("Profilo predefinito non valido: lascio quello precedente.", "warning")
 
-        # Rileggi e normalizza la configurazione
         new_conf = _normalize_config(new_conf)
-        
-        # Scrivi la configurazione aggiornata nel file
         if _safe_write_config(new_conf):
-            # Ricarica la configurazione
-            reload_config()
+            CONFIG = new_conf
+            OLLAMA_BASE = CONFIG.get("ollama_host", OLLAMA_BASE)
+            DEFAULT_MODEL = CONFIG.get("default_model", DEFAULT_MODEL)
+            PROMPT_SYSTEM = CONFIG.get("prompt_system", PROMPT_SYSTEM)
+            DEFAULT_PROFILE = CONFIG.get("default_profile", DEFAULT_PROFILE)
+            PROFILES = CONFIG.get("profiles", {})
+            ollama_client = Client(host=OLLAMA_BASE)
             flash("config.json aggiornato correttamente.", "success")
         else:
             flash("Errore nel salvataggio di config.json (backup preservato).", "error")
         return redirect(url_for("config_page"))
 
-    # Recupera la lista dei modelli disponibili
     models = []
     try:
         url = f"{OLLAMA_BASE.rstrip('/')}/api/tags"
@@ -1140,7 +1079,7 @@ def delete_pdf(filename):
 
 # ---------- Avvio ----------
 if __name__ == '__main__':
-    log_info(f"Avvio e.v.a. | OLLAMA_BASE={OLLAMA_BASE} | DEFAULT_MODEL={DEFAULT_MODEL} | DEFAULT_PROFILE={DEFAULT_PROFILE}")
+    log_info(f"Avvio app-ollama | OLLAMA_BASE={OLLAMA_BASE} | DEFAULT_MODEL={DEFAULT_MODEL} | DEFAULT_PROFILE={DEFAULT_PROFILE}")
     _load_handlers()
     check_ollama_connectivity(False)
     app.run(host='0.0.0.0', debug=True, port=5000)

@@ -11,3 +11,6 @@ config/backup/*
 log/*
 delete.me/*
 /config/backups
+log/log.txt
+log/user.txt
+config/config.backup.json
