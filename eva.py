@@ -15,8 +15,8 @@ from flask import (
     redirect, url_for, flash, send_from_directory
 )
 from werkzeug.utils import secure_filename
-from fpdf import FPDF
-from pypdf import PdfReader
+# from fpdf import FPDF
+# from pypdf import PdfReader
 from ollama import Client
 import requests
 
@@ -32,17 +32,17 @@ HANDLERS_PATH = os.path.join(BASE_PATH, "handlers")
 STATE_FILE = os.path.join(LOG_PATH, "command_mode.state")
 BACKUP_DIR = os.path.join(CONFIG_DIR, "backups")
 
-DATA_DIR = os.path.join(BASE_PATH, "data")
-UPLOAD_DIR = os.path.join(DATA_DIR, "pdfs")
-CHUNKS_STORE = os.path.join(DATA_DIR, "chunks.txt")
+# DATA_DIR = os.path.join(BASE_PATH, "data")
+# UPLOAD_DIR = os.path.join(DATA_DIR, "pdfs")
+# CHUNKS_STORE = os.path.join(DATA_DIR, "chunks.txt")
 
-# Chunking config
-CHUNK_MAX_CHARS = 1200
-CHUNK_OVERLAP   = 200
-CHUNK_DELIM     = "\n\n<<<CHUNK_DELIM>>>\n\n"
+# # Chunking config
+# CHUNK_MAX_CHARS = 1200
+# CHUNK_OVERLAP   = 200
+# CHUNK_DELIM     = "\n\n<<<CHUNK_DELIM>>>\n\n"
 
 # Crea cartelle necessarie
-for d in [CONFIG_DIR, LOG_PATH, HANDLERS_PATH, BACKUP_DIR, DATA_DIR, UPLOAD_DIR]:
+for d in [CONFIG_DIR, LOG_PATH, HANDLERS_PATH, BACKUP_DIR]:
     os.makedirs(d, exist_ok=True)
 
 def _now():
@@ -175,9 +175,20 @@ def split_string(msg):
     return "(errore nella risposta del modello: contenuto non leggibile)"
 
 def sanitize_chunk(text: str) -> str:
+    """
+    Normalizza la stringa (per log/stream), rimuovendo caratteri di controllo
+    che potrebbero dare problemi in HTML o nei log.
+    """
     if not isinstance(text, str):
-        return text
-    return text.replace("**", "").replace("*", "")
+        text = str(text)
+
+    # Normalizza i newline
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+
+    # Rimuovi caratteri di controllo non stampabili (esclusi \n e \t)
+    text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", text)
+
+    return text
 
 def check_ollama_connectivity(raise_on_fail=False):
     url = f"{OLLAMA_BASE.rstrip('/')}/api/tags"
@@ -384,19 +395,19 @@ def _resolve_run_settings(model_from_req: str, profile_name: str):
 app = Flask(__name__)
 app.static_folder = 'static'
 app.secret_key = os.environ.get("FLASK_SECRET", "dev-secret")
-app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
+# app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50 MB
 
 # ---------- helpers upload ----------
-ALLOWED_EXTENSIONS = {"pdf"}
+# ALLOWED_EXTENSIONS = {"pdf"}
 
-def allowed_file(filename: str) -> bool:
-    return bool(filename) and "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+# def allowed_file(filename: str) -> bool:
+#     return bool(filename) and "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def ensure_upload_dir():
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    if not os.access(app.config['UPLOAD_FOLDER'], os.W_OK):
-        raise PermissionError(f"Cartella non scrivibile: {app.config['UPLOAD_FOLDER']}")
+# def ensure_upload_dir():
+#     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+#     if not os.access(app.config['UPLOAD_FOLDER'], os.W_OK):
+#         raise PermissionError(f"Cartella non scrivibile: {app.config['UPLOAD_FOLDER']}")
 
 # ---------- CHAT ----------
 @app.route("/")
@@ -607,52 +618,6 @@ def reload_config():
     PROFILES = CONFIG.get("profiles", {})
     ollama_client = Client(host=OLLAMA_BASE)
 
-# # ---------- CONFIG GENERALE ----------
-# @app.route("/config", methods=["GET", "POST"])
-# def config_page():
-#     global CONFIG, OLLAMA_BASE, DEFAULT_MODEL, PROMPT_SYSTEM, DEFAULT_PROFILE, PROFILES, ollama_client
-#     if request.method == "POST":
-#         new_conf = dict(CONFIG)
-#         new_conf["ollama_host"]   = (request.form.get("ollama_host") or OLLAMA_BASE).strip()
-#         new_conf["default_model"] = (request.form.get("default_model") or DEFAULT_MODEL).strip()
-#         new_conf["prompt_system"] = request.form.get("prompt_system", PROMPT_SYSTEM)
-#         dp = (request.form.get("default_profile") or DEFAULT_PROFILE).strip()
-#         if dp and dp in CONFIG.get("profiles", {}):
-#             new_conf["default_profile"] = dp
-#         else:
-#             flash("Profilo predefinito non valido: lascio quello precedente.", "warning")
-
-#         new_conf = _normalize_config(new_conf)
-#         if _safe_write_config(new_conf):
-#             CONFIG = new_conf
-#             OLLAMA_BASE = CONFIG.get("ollama_host", OLLAMA_BASE)
-#             DEFAULT_MODEL = CONFIG.get("default_model", DEFAULT_MODEL)
-#             PROMPT_SYSTEM = CONFIG.get("prompt_system", PROMPT_SYSTEM)
-#             DEFAULT_PROFILE = CONFIG.get("default_profile", DEFAULT_PROFILE)
-#             PROFILES = CONFIG.get("profiles", {})
-#             ollama_client = Client(host=OLLAMA_BASE)
-#             flash("config.json aggiornato correttamente.", "success")
-#         else:
-#             flash("Errore nel salvataggio di config.json (backup preservato).", "error")
-#         return redirect(url_for("config_page"))
-
-#     models = []
-#     try:
-#         url = f"{OLLAMA_BASE.rstrip('/')}/api/tags"
-#         r = requests.get(url, timeout=5)
-#         r.raise_for_status()
-#         model_list = r.json().get("models", [])
-#         models = [(m.get("name") or m.get("model")) for m in model_list if (m.get("name") or m.get("model"))]
-#     except Exception as e:
-#         log_error(f"/config fetch models error: {e}")
-#     if not models:
-#         models = [DEFAULT_MODEL]
-
-#     return render_template("config_general.html",
-#                            cfg=CONFIG,
-#                            models=models,
-#                            profiles=CONFIG.get("profiles", {}),
-#                            default_profile=CONFIG.get("default_profile", "default"))
 
 @app.route("/config", methods=["GET", "POST"])
 def config_page():
@@ -873,270 +838,6 @@ def reload_handlers():
     _load_handlers()
     return jsonify({"status": "ok", "loaded": [getattr(m, "__name__", "handler") for m in _LOADED_HANDLERS]})
 
-# ---------- PDF RAG: pagine ----------
-@app.route("/pdfrag")
-def pdfrag():
-    return render_template("pdfrag.html")
-
-@app.route('/clear_chunks', methods=['POST'])
-def clear_chunks():
-    clear_vectorstore()
-    return redirect(url_for('pdfrag'))
-
-@app.route("/chunks")
-def chunks():
-    chunks_list = get_indexed_chunks()
-    return render_template("chunks.html", chunks=chunks_list)
-
-@app.route('/manage', methods=['GET'])
-def manage():
-    pdf_files = list_pdfs()
-    return render_template('manage.html', pdf_files=pdf_files, log_messages=[])
-
-@app.route('/upload', methods=['POST'])
-def upload():
-    logs = []
-    paths = []
-
-    try:
-        ensure_upload_dir()
-    except Exception as e:
-        flash(f"Errore cartella upload: {e}", "error")
-        pdf_files = list_pdfs()
-        return render_template("manage.html", pdf_files=pdf_files, log_messages=logs)
-
-    # Supporta sia <input name="pdfs" multiple> sia <input name="pdf">
-    files = []
-    if 'pdfs' in request.files:
-        files = request.files.getlist('pdfs') or []
-    elif 'pdf' in request.files:
-        f = request.files.get('pdf')
-        if f:
-            files = [f]
-
-    if not files:
-        flash("Nessun file caricato. Assicurati che il form abbia enctype='multipart/form-data' e un input name='pdfs'.", "warning")
-        pdf_files = list_pdfs()
-        return render_template("manage.html", pdf_files=pdf_files, log_messages=logs)
-
-    for file in files:
-        if not file or not (file.filename or "").strip():
-            continue
-        try:
-            if not allowed_file(file.filename):
-                logs.append(f"[SKIP] {file.filename}: estensione non permessa (solo .pdf).")
-                continue
-            saved_path = save_pdf(file)
-            logs.append(f"[UPLOAD] Caricato: {os.path.basename(saved_path)}")
-            paths.append(saved_path)
-        except Exception as e:
-            err = f"[ERRORE] {file.filename}: {e}"
-            logs.append(err)
-            log_error(err)
-
-    if paths:
-        try:
-            num_chunks, added = ingest_pdfs(paths)
-            logs.append(f"[INGEST] Totale chunk indicizzati: {num_chunks}")
-            for i, chunk in enumerate(added[:5]):
-                logs.append(f"[CHUNK {i}] {chunk[:80]}...")
-        except Exception as e:
-            logs.append(f"[INGEST ERRORE] {e}")
-            log_error(f"ingest error: {e}")
-
-    pdf_files = list_pdfs()
-    return render_template("manage.html", pdf_files=pdf_files, log_messages=logs)
-
-@app.route('/delete_pdf/<filename>', methods=['POST'])
-def delete_pdf_route(filename):
-    delete_pdf(filename)
-    logs = [f"[DELETE] Rimosso: {filename}"]
-    pdf_files = list_pdfs()
-    return render_template("manage.html", pdf_files=pdf_files, log_messages=logs)
-
-@app.route('/pdfs/<filename>')
-def serve_pdf(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-@app.route('/export_chunks')
-def export_chunks():
-    chunks_list = get_indexed_chunks()
-    response = "\n\n".join(chunks_list)
-    return response, 200, {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Content-Disposition': 'attachment; filename=chunks_export.txt'
-    }
-
-@app.route('/search_chunks', methods=['GET'])
-def search_chunks():
-    query = request.args.get('q', '').lower()
-    chunks_list = get_indexed_chunks()
-    results = [c for c in chunks_list if query in c.lower()]
-    return render_template("chunks.html", chunks=results, query=query)
-
-@app.route('/export_chunks_pdf')
-def export_chunks_pdf():
-    chunks_list = get_indexed_chunks()
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.add_page()
-    pdf.set_font("Arial", size=11)
-    for chunk in chunks_list:
-        pdf.multi_cell(0, 6, chunk + "\n")
-        pdf.ln(2)
-    pdf_output = os.path.join(DATA_DIR, "export_chunks.pdf")
-    pdf.output(pdf_output)
-    return send_from_directory(DATA_DIR, "export_chunks.pdf", as_attachment=True)
-
-@app.errorhandler(413)
-def too_large(e):
-    return "File troppo grande. Limite 50MB (modifica MAX_CONTENT_LENGTH per aumentarlo).", 413
-
-# ---------- Parser/Chunking ----------
-def _load_chunks_text() -> list[str]:
-    if not os.path.exists(CHUNKS_STORE):
-        return []
-    try:
-        with open(CHUNKS_STORE, "r", encoding="utf-8") as f:
-            data = f.read()
-        if not data.strip():
-            return []
-        if CHUNK_DELIM in data:
-            parts = data.split(CHUNK_DELIM)
-        else:
-            parts = [p for p in data.split("\n\n") if p.strip()]
-        return [p for p in parts if p.strip()]
-    except Exception as e:
-        log_error(f"_load_chunks_text error: {e}")
-        return []
-
-def _save_chunks_text(chunks: list[str]) -> None:
-    try:
-        with open(CHUNKS_STORE, "w", encoding="utf-8") as f:
-            f.write(CHUNK_DELIM.join(chunks))
-    except Exception as e:
-        log_error(f"_save_chunks_text error: {e}")
-
-def _extract_pdf_pages_text(path: str) -> list[str]:
-    texts = []
-    try:
-        reader = PdfReader(path)
-        for p in reader.pages:
-            t = p.extract_text() or ""
-            texts.append(t)
-    except Exception as e:
-        log_error(f"Errore lettura PDF '{path}': {e}")
-    return texts
-
-def _normalize_text(s: str) -> str:
-    if not s:
-        return ""
-    s = s.replace("\r", "\n")
-    s = re.sub(r"\u00A0", " ", s)
-    s = re.sub(r"[ \t]+", " ", s)
-    s = re.sub(r"\n{3,}", "\n\n", s)
-    return s.strip()
-
-def _chunk_text(t: str, max_chars=CHUNK_MAX_CHARS, overlap=CHUNK_OVERLAP) -> list[str]:
-    t = _normalize_text(t)
-    n = len(t)
-    if n == 0:
-        return []
-
-    chunks = []
-    i = 0
-    while i < n:
-        hard_end = min(n, i + max_chars)
-        window = t[i:hard_end]
-        m = list(re.finditer(r"(\n\n|[\.!?](?:\s|$))", window))
-        if m:
-            end = i + m[-1].end()
-        else:
-            end = hard_end
-        if end <= i:
-            end = min(n, i + max_chars)
-
-        chunk = t[i:end].strip()
-        if chunk:
-            chunks.append(chunk)
-
-        if end >= n:
-            break
-
-        if overlap > 0:
-            i = max(end - overlap, i + 1)
-        else:
-            i = end
-
-    return chunks
-
-def list_pdfs():
-    try:
-        return sorted([f for f in os.listdir(app.config['UPLOAD_FOLDER']) if f.lower().endswith(".pdf")])
-    except Exception as e:
-        log_error(f"list_pdfs error: {e}")
-        return []
-
-def save_pdf(file_storage):
-    ensure_upload_dir()
-    fname = secure_filename(file_storage.filename or "")
-    if not allowed_file(fname):
-        raise ValueError("Estensione non permessa (solo .pdf).")
-
-    name, ext = os.path.splitext(fname)
-    candidate = fname
-    i = 1
-    dest = os.path.join(app.config['UPLOAD_FOLDER'], candidate)
-    while os.path.exists(dest):
-        candidate = f"{name} ({i}){ext}"
-        dest = os.path.join(app.config['UPLOAD_FOLDER'], candidate)
-        i += 1
-
-    file_storage.save(dest)
-    log_info(f"[UPLOAD] Salvato: {candidate}")
-    return dest
-
-def get_indexed_chunks() -> list[str]:
-    return _load_chunks_text()
-
-def ingest_pdfs(paths: list[str]) -> tuple[int, list[str]]:
-    existing = _load_chunks_text()
-    new_chunks = []
-
-    for path in paths:
-        basename = os.path.basename(path)
-        pages = _extract_pdf_pages_text(path)
-        if not pages:
-            log_error(f"Nessun testo estratto da: {path}")
-            continue
-
-        for page_idx, raw in enumerate(pages):
-            txt = _normalize_text(raw)
-            if not txt:
-                continue
-            pieces = _chunk_text(txt)
-            for ci, piece in enumerate(pieces):
-                header = f"[SRC] {basename} | p.{page_idx+1} | c.{ci}"
-                new_chunks.append(f"{header}\n{piece}")
-
-    all_chunks = existing + new_chunks
-    _save_chunks_text(all_chunks)
-    return len(all_chunks), new_chunks
-
-def clear_vectorstore():
-    try:
-        if os.path.exists(CHUNKS_STORE):
-            os.remove(CHUNKS_STORE)
-    except Exception as e:
-        log_error(f"clear_vectorstore error: {e}")
-
-def delete_pdf(filename):
-    try:
-        path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        if os.path.exists(path):
-            os.remove(path)
-    except Exception as e:
-        log_error(f"delete_pdf error: {e}")
 
 # ---------- Avvio ----------
 if __name__ == '__main__':
