@@ -4670,3 +4670,103 @@ bot: Per poter scansionare le vulnerabilità di una rete o del sistema, è neces
    Questo comando avvia lo scanner e consente di specificare l'host da analizzare.
 
 3. Nessus: Un altro strumento per la valutazione della sicurezza, fornisce un'interfaccia con una gestione centralizzata e permette agli utenti di creare i propri
+user: ciao
+bot: (errore: impossibile contattare Ollama su http://192.168.1.7:11434 - Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download)
+user: ciao
+bot: (errore: impossibile contattare Ollama su http://192.168.1.7:11434 - Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download)
+user: ciao
+bot: (errore: impossibile contattare Ollama su http://192.168.1.7:11434 - Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download)
+user: ciao
+bot: Ciao! Che bello sentirti! 😊 Sono E.V.A., il tuo assistente creativo e amichevole. Cosa ti va di fare oggi? Possiamo fare brainstorming, scrivere una storia, trovare idee per un progetto, o semplicemente chiacchierare! Dimmi pure, sono prontissima a dare una spolverata alla tua immaginazione! ✨
+
+user: ciao
+bot: Ciao! Che bello incontrarti! 😊 Sono E.V.A., il tuo assistente creativo e amichevole. 
+
+Cosa ti va di fare oggi? Hai bisogno di un'idea per un progetto, vuoi scrivere una storia, o magari esplorare un nuovo tema? Dimmi pure, sono qui per aiutarti a brillare! ✨
+user: ciao
+bot: Ciao! Che bello sentirti! 😊 Sono E.V.A., il tuo assistente creativo e amichevole, pronto a dare una scossa di idee alle tue giornate! Cosa ti va di fare oggi? Hai bisogno di un brainstorming, di un consiglio, o magari solo di una chiacchierata stimolante? Dimmi tutto! ✨
+user: che ore sono
+bot: Sono le 12:17.
+user: ciao
+bot: Ciao! Che bello sentirti! 😊 Sono E.V.A., il tuo assistente creativo e amichevole. Cosa ti va di fare oggi? Hai bisogno di un'idea per un progetto, di un consiglio, o semplicemente di una chiacchierata stimolante? Sono qui per te! ✨
+user: che ore sono
+bot: Sono le 12:19.
+user: ciao
+bot: Ciao! Che bello sentirti! 😊 Sono E.V.A., il tuo assistente creativo e amichevole, pronto a dare una scossa di idee e a rendere tutto un po' più divertente e stimolante. 
+
+Cosa ti va di fare oggi? Hai bisogno di brainstorming, aiuto per un progetto, o magari solo di una chiacchierata creativa? Fammi sapere! ✨
+
+user: ciao
+bot: Ciao! Che bello sentirti! 😊 Sono E.V.A., il tuo assistente creativo e amichevole, pronto a dare una spinta di idee e a rendere il tuo progetto ancora più brillante! 
+
+Cosa ti incuriosisce oggi? Hai bisogno di un brainstorming, di qualche suggerimento, o magari vuoi semplicemente chiacchierare di qualcosa di creativo? Dimmi tutto, sono qui per te! ✨
+
+user: via radio
+bot: Ciao a tutti! 🎤  Sono E.V.A., pronto per darti un'emozionante dose di creatività! ✨
+
+Che cosa vuoi creare oggi? Un jingle accattivante? Una storia coinvolgente o semplicemente una risatina contagiosa? 🤩 Dimmi pure!  💫
+user: accendi la radio
+bot: Modalita comandi DISATTIVATA. Torno a usare il modello.
+user: martino metti virgin radio
+bot: Ma che divertimento!  🎧 Virgin Radio, l'incrocio perfetto tra musica, emozioni e passione! ☀️🔥 Che ne dici di un assaggio?  🎶  Dimmi pure quale genere ti appassiona e prepariamoci per un pomeriggio indimenticabile! 🚀 🎤 🎸  Che spero sia "il tuo ritmo" 😉
+
+user: metti virgin radio
+bot: Ok, accendo Virgin Radio.
+user: mat virgin radio
+bot: Ah, ecco l'inizio della nostra fantastica avventura! 🚀  **Mat Virgin Radio** mi fa venire voglia di ascoltare musica, storie, e di ballare 🎶. Che tipo di programmazione ti attira di più? Che c'è da condividere? Condividi con me i tuoi playlist preferiti, i generi musicali che ami e le tue emozioni per creare una combinazione magica! ✨  Let's rock! 🤘
+
+user: met virgin radio
+bot: Aaaah, Virgin Radio! 🎧 ✨  Qual è la tua richiesta esatta? Un'ispirazione musicale per una giornata carica? Una playlist per ballare come un'angelica? O semplicemente chiacchierare su musica con me? 😊 Fammi sapere, sono pronto ad illuminarti con la magia di Virgin Radio!  🚀 
+
+user: accendi la radio
+bot: Modalita comandi DISATTIVATA. Torno a usare il modello.
+user: accendi la radio
+bot: Modalita comandi DISATTIVATA. Torno a usare il modello.
+user: riproduci virgin radio
+bot: C'è qualcosa di speciale che ti vuole conquistare?  😈 
+
+Dimmi, qual è il tuo sogno musicale? Un mix energico per una festa fuori dalla città, o un'atmosfera rilassante per una serata in salotto? ✨ 
+
+Descrivi l'esperienza che vorresti creare e io mi lascerò guidare da te per **ricreare la magia di Virgin Radio!**  🚀🎶
+
+🔥Dai il via alla tua playlist! 🔥 
+
+user: bt virgin radio
+bot: Ehi, ascolta! 😄 🎶 Ho l'istante per aiutarti con la tua radio Virgin. Qual è il tuo desiderio musicale? Vuoi scoprire nuovi artisti? Stiamo organizzando una "vibes explosion" o preferisci un viaggio nostalgico attraverso i classici?
+
+Parla pure!  🚀🎤
+
+user: avvia virgin radio
+bot: Ok, pronto per una dose di musica irresistibile! 🚀  Dimmi: 
+
+**Che tipo di vibe cerchi? Rock 'n' roll energico o chillwave rilassante? Preferisci la storia della musica o qualcosa di fresco e nuovo?** 🎧💥
+
+Una volta che mi dai un'informazione, avvio Virgin Radio per te. 😉  
+
+user: met virgin radio
+bot: ✨  Ah, Virgin Radio! 🎶  Quello è l'energia che mi fa ballare! 🤩  
+
+Cosa ti piace di più? Preferisci la musica fresca e innovativa del momento o qualche pezzo evergreen per un classico ascolto? 🤔  Dimmi pure cosa ti sta dando energia e ti aiuto a trovarla! 🚀 
+
+user: avvia virgin radio
+bot: Ok, ok!  🎶  
+
+Apriamo la playlist della vita! 🤩 Virgin Radio è pronta per l'esaurimento di emozioni positive! 😎 🤘 🎧 Chiavi aperte? 😉
+
+
+**Che brani ti suggerisco per iniziare questa sessione musicale magica?** ✨
+
+user: riproduci virgin radio
+bot: Ciao!  ☀️🎶  Ho il mio orecchio pronto per "Riproducere Virgin Radio"!  🎧 
+
+Dimmi, cosa ti interessa di questa playlist perfetta? 🎙️ Che brani vuoi ascoltare? 🎸🎤  Cerchi la musica iconica del passato? O qualcosa di nuovo e energico?  🚀  Fammelo sapere! 😉
+
+
+Non vedo l'ora di creare un'esperienza sonora da brivido con te! 🤩 
+
+user: metti virgin radio
+bot: Virgin Radio! ⚡️✨  Prendi il microfono e inizia a cantare, ragazzi! Cosa c'è che vuoi ascoltare? Dal pop al rock, passando per la musica elettronica, sono qui per te! 🎧🎤🎶  A chi piace di più una bomba musicale o un concerto live? 🤔  Diciamolo: non mi importa, dimmi cosa ti fa ballare! 🎉😉
+
+user: bt virgin radio
+bot: Allora, che dire di Virgin Radio?  🤩🔥 Un'esplosione di musica! 💥 Dai un'occhiata su https://www.virginradio.it/ , ti piace qualcosa di particolare, fammelo sapere!  🎧🎶 😄
+

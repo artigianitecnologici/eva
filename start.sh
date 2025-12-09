@@ -27,8 +27,8 @@ if [ $? != 0 ]; then
   # Creazione della sessione tmux
    
   tmux -2 new-session -d -s $SESSION
-  tmux rename-window -t $SESSION:0 'server-ai'  # Window 0 is renamed to 'config'
-  tmux new-window -t $SESSION:1 -n 'tg-bridge'  # Window 1 named 'docker'
+  tmux rename-window -t $SESSION:0 'eva'  # Window 0 is renamed to 'config'
+  tmux new-window -t $SESSION:1 -n 'stt_vosk'  # Window 1 named 'docker'
   tmux new-window -t $SESSION:2 -n 'free'  # Window 2 named 'cmdexe'
   tmux new-window -t $SESSION:3 -n 'free01'  # Window 3 named 'robot_bringup'
   tmux new-window -t $SESSION:4 -n 'free02'  # Window 3 named 'robot_bringup'
@@ -43,11 +43,11 @@ if [ $? != 0 ]; then
 
   # Commands to be executed in window 0
   tmux send-keys -t $SESSION:0 "source myenv/bin/activate" C-m
-  tmux send-keys -t $SESSION:0 "python3 app-ollama.py" C-m
+  tmux send-keys -t $SESSION:0 "python3 eva.py" C-m
 
   # Commands to be executed in window 1
   tmux send-keys -t $SESSION:1 "source myenv/bin/activate" C-m
-  tmux send-keys -t $SESSION:1 "python3 tg_ollama_bridge.py" C-m
+  tmux send-keys -t $SESSION:1 "./stt.sh" C-m
 
 
 fi

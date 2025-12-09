@@ -1,7 +1,7 @@
 {
   "lang": "it",
-  "samplerate": 16000,
-  "audio_device": "auto",
+  "samplerate": 48000,
+  "audio_device": "4",
   "show_partial": false,
   "models_dir": "./models",
   "models": {
@@ -13,5 +13,40 @@
       "name": "vosk-model-small-en-us-0.15",
       "url": "https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"
     }
+  },
+  "wake": {
+    "enabled": true,
+    "wake_words": [
+      "martino"
+    ],
+    "match": "anywhere",
+    "case_sensitive": false,
+    "normalize_accents": true
+  },
+  "beep": {
+    "enabled": true,
+    "frequency": 1000,
+    "duration_ms": 180,
+    "volume": 0.2
+  },
+  "tts": {
+  "enabled": true,
+  "models_dir": "./models/piper",
+  "default_voice": "paola",
+  "length_scale": 1.0,
+  "noise_scale": 0.667,
+  "noise_w": 0.8,
+  "ack_text": "Ho capito, un attimo e ti rispondo.",
+  "output_device": "plughw:1,1"
+},
+  "eva": {
+    "enabled": true,
+    "url": "http://127.0.0.1:5000/json",
+    "model": "",
+    "profile": ""
+  },
+  "nlp": {
+    "corrections": true,
+    "commands_vocab_file": "commands_vocab.it.json"
   }
 }
