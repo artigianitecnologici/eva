@@ -3,21 +3,28 @@ EVA AI
  Enhanced Virtual Assistant
 
 # prerequisite
+```bash
 sudo apt install python3.12-venv
 sudo apt install python3-pip
-
+```
 # per creare enviroment
+```bash
 python3 -m venv myenv
-
+```
 # per attivarlo
+```bash
 source myenv/bin/activate
 pip3 --version
-@ installazione librerie
+```
+# installazione librerie 
+
+```bash
 pip3 install -r requirements.txt
-
+```
 # Disattivazione 
+```bash
 deactivate
-
+```
 # scaricare le voci 
 
 # (sei già in ~/eva/models/piper)

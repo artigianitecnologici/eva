@@ -1,0 +1,27 @@
+{
+  "eva_base": "http://127.0.0.1:5000",
+  "marrtino": {
+    "profile": "twochat_martino",
+    "model": ""
+  },
+  "peppino": {
+    "profile": "twochat_peppino",
+    "model": ""
+  },
+  "topics": [
+    "chiacchiere casuali"
+  ],
+  "topic_mode": "cycle",
+  "max_history_lines": 18,
+  "sleep_s": 0.25,
+  "timeout_s": 30,
+  "auto_turns": 40,
+  "log": {
+    "enabled": true,
+    "path": "twochat.log"
+  },
+  "ui": {
+    "host": "127.0.0.1",
+    "port": 5001
+  }
+}
