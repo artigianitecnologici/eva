@@ -29,7 +29,7 @@ if [ $? != 0 ]; then
   tmux -2 new-session -d -s $SESSION
   tmux rename-window -t $SESSION:0 'eva'  # Window 0 is renamed to 'config'
   tmux new-window -t $SESSION:1 -n 'stt_vosk'  # Window 1 named 'docker'
-  tmux new-window -t $SESSION:2 -n 'free'  # Window 2 named 'cmdexe'
+  tmux new-window -t $SESSION:2 -n 'twochat'  # Window 2 named 'cmdexe'
   tmux new-window -t $SESSION:3 -n 'free01'  # Window 3 named 'robot_bringup'
   tmux new-window -t $SESSION:4 -n 'free02'  # Window 3 named 'robot_bringup'
 
@@ -49,6 +49,9 @@ if [ $? != 0 ]; then
   tmux send-keys -t $SESSION:1 "source myenv/bin/activate" C-m
   tmux send-keys -t $SESSION:1 "./stt.sh" C-m
 
+  # Commands to be executed in window 2
+  tmux send-keys -t $SESSION:2 "source myenv/bin/activate" C-m
+  #tmux send-keys -t $SESSION:1 "./stt.sh" C-m
 
 fi
 

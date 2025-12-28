@@ -18,3 +18,6 @@ config/config.backup.json
 log/log.txt
 log/error.txt
 handlers/__pycache__/time_it.cpython-312.pyc
+/log
+log/error.txt
+/log

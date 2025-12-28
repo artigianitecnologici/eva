@@ -6,16 +6,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    :root{ --bg:#0f172a; --card:#111827; --panel:#0b1220; --border:#1f2937;
-           --text:#e5e7eb; --heading:#f8fafc; --muted:#cbd5e1; --link:#bfe3ff; }
+    :root{
+      --bg:#0f172a;
+      --card:#111827;
+      --panel:#0b1220;
+      --border:#1f2937;
+      --text:#e5e7eb;
+      --heading:#f8fafc;
+      --link:#bfe3ff;
+
+      /* ✅ descrizioni in giallo */
+      --desc:#facc15; /* amber */
+    }
+
     body { background:var(--bg); color:var(--text); }
     .navbar{ background:var(--card); border-bottom:1px solid var(--border); }
     .card { background:var(--card); border:1px solid var(--border); }
-    .form-control, .form-select, textarea { background:var(--panel); color:var(--text); border-color:var(--border); }
-    .form-control:focus, .form-select:focus, textarea:focus { box-shadow:none; border-color:#334155; }
+
+    .form-control, .form-select, textarea {
+      background:var(--panel) !important;
+      color:var(--text) !important;
+      border-color:var(--border) !important;
+    }
+    .form-control:focus, .form-select:focus, textarea:focus {
+      box-shadow:none; border-color:#334155 !important;
+    }
+
+    /* ✅ fix: campi disabled/readonly leggibili (niente bianco su bianco) */
+    .form-control:disabled,
+    .form-control[disabled],
+    .form-control[readonly],
+    .form-select:disabled,
+    .form-select[disabled]{
+      background:var(--panel) !important;
+      color:var(--text) !important;
+      opacity: 1 !important; /* bootstrap tende a “sbiadire” */
+      -webkit-text-fill-color: var(--text) !important; /* Safari */
+    }
+
     h1,h2,h3,h4,h5,h6,.card-title,.form-label{ color:var(--heading)!important; }
     a,a:visited{ color:var(--link); }
-    .small-note{ color:var(--muted); }
+
+    /* ✅ descrizioni in giallo */
+    .small-note{ color:var(--desc) !important; }
+
+    .helpbox{
+      background: rgba(250,204,21,0.08); /* leggero giallo */
+      border: 1px solid rgba(250,204,21,0.35);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 10px 0 16px 0;
+    }
+    .helpbox code{ color:#e2e8f0; }
+    .helpbox ul{ margin-bottom:0; }
+
+    /* opzionale: placeholder leggibile */
+    ::placeholder { color: rgba(229,231,235,0.55) !important; }
   </style>
 </head>
 <body>
@@ -50,6 +96,7 @@
           <label class="form-label">Label</label>
           <input class="form-control" name="label" value="{{ p.label }}">
         </div>
+
         <div class="col-12">
           <label class="form-label">Modello</label>
           <select class="form-select" name="model">
@@ -57,31 +104,93 @@
               <option value="{{ m }}" {% if p.model == m %}selected{% endif %}>{{ m }}</option>
             {% endfor %}
           </select>
+          <div class="small-note mt-1">
+            Seleziona il modello Ollama da usare per questo profilo (deve risultare presente in <code>/api/tags</code>).
+          </div>
         </div>
+
         <div class="col-12">
           <label class="form-label">System prompt</label>
           <textarea class="form-control" rows="10" name="system">{{ p.system }}</textarea>
+          <div class="small-note mt-1">
+            Istruzioni sempre attive per questo profilo (tono, regole, formato output, ecc.).
+          </div>
         </div>
       </div>
 
       <hr>
-      <h3 class="h6">Opzioni generazione (Ollama)</h3>
+
+      <h3 class="h6 mb-2">Opzioni generazione (Ollama)</h3>
+
+      <div class="helpbox small-note">
+        <div class="mb-1">
+          Questi parametri controllano <strong>come</strong> il modello genera testo (creatività, casualità, lunghezza, ripetizioni).
+        </div>
+        <ul class="mb-0">
+          <li><strong>Più creatività</strong>: aumenta <code>temperature</code> o <code>top_p</code>, e/o aumenta <code>top_k</code>.</li>
+          <li><strong>Più precisione</strong>: abbassa <code>temperature</code> e <code>top_p</code>, e usa <code>repeat_penalty</code> leggermente sopra 1.</li>
+          <li><strong>Risposte più lunghe</strong>: aumenta <code>num_predict</code>. Il contesto massimo sta in <code>num_ctx</code>.</li>
+          <li><strong>Stop words</strong>: con <code>stop</code> puoi fermare l’output quando compaiono certe stringhe.</li>
+        </ul>
+        <div class="mt-2">
+          Suggerimenti rapidi: <code>temperature</code> 0.1–0.3 (tecnico), 0.6–0.9 (creativo). <code>repeat_penalty</code> 1.05–1.20 per ridurre loop.
+        </div>
+      </div>
+
       {% set o = p.options or {} %}
       <div class="row g-2">
-        <div class="col-md-4"><label class="form-label">temperature</label><input class="form-control" name="temperature" value="{{ o.temperature }}"></div>
-        <div class="col-md-4"><label class="form-label">top_p</label><input class="form-control" name="top_p" value="{{ o.top_p }}"></div>
-        <div class="col-md-4"><label class="form-label">top_k</label><input class="form-control" name="top_k" value="{{ o.top_k }}"></div>
-        <div class="col-md-4"><label class="form-label">num_ctx</label><input class="form-control" name="num_ctx" value="{{ o.num_ctx }}"></div>
-        <div class="col-md-4"><label class="form-label">num_predict</label><input class="form-control" name="num_predict" value="{{ o.num_predict }}"></div>
-        <div class="col-md-4"><label class="form-label">repeat_penalty</label><input class="form-control" name="repeat_penalty" value="{{ o.repeat_penalty }}"></div>
-        <div class="col-md-4"><label class="form-label">seed</label><input class="form-control" name="seed" value="{{ o.seed }}"></div>
-        <div class="col-12"><label class="form-label">stop (virgole)</label>
-          <input class="form-control" name="stop" value="{% if o.stop %}{{ o.stop|join(',') }}{% endif %}">
+        <div class="col-md-4">
+          <label class="form-label">temperature</label>
+          <input class="form-control" name="temperature" value="{{ o.temperature }}">
+          <div class="small-note mt-1">Casualità/creatività: basso = più stabile, alto = più vario.</div>
         </div>
+
+        <div class="col-md-4">
+          <label class="form-label">top_p</label>
+          <input class="form-control" name="top_p" value="{{ o.top_p }}">
+          <div class="small-note mt-1">Nucleus sampling: più basso = più conservativo.</div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">top_k</label>
+          <input class="form-control" name="top_k" value="{{ o.top_k }}">
+          <div class="small-note mt-1">Limita la scelta ai primi K token: più basso = più prevedibile.</div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">num_ctx</label>
+          <input class="form-control" name="num_ctx" value="{{ o.num_ctx }}">
+          <div class="small-note mt-1">Dimensione del contesto (memoria) in token.</div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">num_predict</label>
+          <input class="form-control" name="num_predict" value="{{ o.num_predict }}">
+          <div class="small-note mt-1">Token massimi generati in output (lunghezza risposta).</div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">repeat_penalty</label>
+          <input class="form-control" name="repeat_penalty" value="{{ o.repeat_penalty }}">
+          <div class="small-note mt-1">Penalizza ripetizioni (tipico 1.05–1.20).</div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">seed</label>
+          <input class="form-control" name="seed" value="{{ o.seed }}">
+          <div class="small-note mt-1">Seed per output più riproducibile (se supportato).</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">stop (virgole)</label>
+          <input class="form-control" name="stop" value="{% if o.stop %}{{ o.stop|join(',') }}{% endif %}">
+          <div class="small-note mt-1">Stringhe che fermano la generazione, separate da virgola (es: <code>```</code>).</div>
+        </div>
+
         <div class="col-12">
           <label class="form-label">options_raw (JSON – merge)</label>
           <textarea class="form-control" name="options_raw" rows="2" placeholder='{"typical_p":0.95,"mirostat":0}'></textarea>
-          <div class="small-note">Lascia vuoto se non devi aggiungere/forzare chiavi extra.</div>
+          <div class="small-note">Campo avanzato: JSON con chiavi extra da unire/sovrascrivere. Lascia vuoto se non serve.</div>
         </div>
       </div>
 
